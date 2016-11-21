@@ -2,6 +2,8 @@
 
 const del = require('del');
 const gulp = require('gulp');
+const sourcemaps = require('gulp-sourcemaps');
+const babel = require('gulp-babel');
 const sass = require('gulp-sass');
 const plumber = require('gulp-plumber');
 const postcss = require('gulp-postcss');
@@ -38,6 +40,9 @@ gulp.task('style', function () {
 gulp.task('scripts', function () {
   return gulp.src('js/**/*.js')
     .pipe(plumber())
+    .pipe(sourcemaps.init())
+    .pipe(babel())
+    .pipe(sourcemaps.write('.'))
     .pipe(gulp.dest('build/js/'));
 });
 
