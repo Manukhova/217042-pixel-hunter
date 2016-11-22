@@ -1,16 +1,22 @@
-(function () {
 
-  let loadTemplate = (templateName) => {
-    let node = document.createElement('span');
-    let template = document.getElementById(templateName);
-    let content = template.content ? template.content : template;
-    node.appendChild(content);
-    return node.cloneNode(true);
-  };
+import greetingElement from './greeting';
+import rulesElement from './rules';
+import gameOneElement from './game-1';
+import gameTwoElement from './game-2';
+import gameThreeElement from './game-3';
+import statsElement from './stats';
+import introElement from './intro';
+
+  // let getElementFromTemplate = (string) => {
+  //   let node = document.createElement('span');
+  //   let content = string;
+  //   node.appendChild(content);
+  //   return node.cloneNode(true);
+  // };
 
 
   // Rules
-  let rulesElement = loadTemplate('rules');
+  // let rulesElement = loadTemplate('rules');
   let rulesSubmit = rulesElement.querySelector('.rules__button');
 
   rulesElement.querySelector('.rules__input').oninput = () => {
@@ -33,13 +39,13 @@
   mainElement.after(switcher);
 
   let slides = [
-    loadTemplate('intro'),
-    loadTemplate('greeting'),
+    introElement,
+    greetingElement,
     rulesElement,
-    loadTemplate('game-1'),
-    loadTemplate('game-2'),
-    loadTemplate('game-3'),
-    loadTemplate('stats')
+    gameOneElement,
+    gameTwoElement,
+    gameThreeElement,
+    statsElement
   ];
   let current = -1;
 
@@ -62,4 +68,3 @@
   };
 
   select(0);
-})();
