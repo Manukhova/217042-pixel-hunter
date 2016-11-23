@@ -1,4 +1,3 @@
-'use strict';
 
 import getElementFromTemplate from './getElementFromTemplate';
 
