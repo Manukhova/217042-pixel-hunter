@@ -48,8 +48,11 @@ const templateGameThree = `<header class="header">
 
 const gameThreeElement = getElementFromTemplate(templateGameThree);
 
-gameThreeElement.querySelector('.game__option').addEventListener('click', () => {
-  select(statsElement, gameThreeElement);
+gameThreeElement.querySelector('.game__content').addEventListener('click', () => {
+  event.preventDefault();
+  if (event.target.classList.contains('game__option')) {
+    select(statsElement, gameThreeElement);
+  }
 });
 
 export default gameThreeElement;

@@ -40,7 +40,8 @@ rulesElement.querySelector('.rules__input').oninput = () => {
   }
 };
 
-rulesElement.querySelector('.rules__button').addEventListener('click', () => {
+rulesElement.querySelector('.rules__button').addEventListener('click', (event) => {
+  event.preventDefault();
   select(gameOneElement, rulesElement);
 });
 

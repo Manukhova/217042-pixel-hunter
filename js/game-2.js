@@ -50,8 +50,11 @@ const templateGameTwo = `<header class="header">
 
 const gameTwoElement = getElementFromTemplate(templateGameTwo);
 
-gameTwoElement.querySelector('.game__answer').addEventListener('click', () => {
-  select(gameThreeElement, gameTwoElement);
+gameTwoElement.querySelector('.game__content').addEventListener('click', (event) => {
+  event.preventDefault();
+  if (event.target.parentNode.classList.contains('game__answer')) {
+    select(gameThreeElement, gameTwoElement);
+  }
 });
 
 export default gameTwoElement;

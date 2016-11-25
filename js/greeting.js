@@ -20,6 +20,7 @@ const templateGreeting = `<div class="greeting  central--blur">
 const greetingElement = getElementFromTemplate(templateGreeting);
 
 greetingElement.querySelector('.greeting__continue').addEventListener('click', () => {
+  event.preventDefault();
   select(rulesElement, greetingElement);
 });
 

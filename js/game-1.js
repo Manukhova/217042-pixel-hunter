@@ -61,8 +61,11 @@ const templateGameOne = `<header class="header">
 
 const gameOneElement = getElementFromTemplate(templateGameOne);
 
-gameOneElement.querySelector('.game__answer').addEventListener('click', () => {
-  select(gameTwoElement, gameOneElement);
+gameOneElement.querySelector('.game__content').addEventListener('click', (event) => {
+  event.preventDefault();
+  if (event.target.parentNode.classList.contains('game__answer')) {
+    select(gameTwoElement, gameOneElement);
+  }
 });
 
 
