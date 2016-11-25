@@ -28,7 +28,7 @@ const game = {
   }
 };
 
-const templateGameOne = `<header class="header">
+const header = `<header class="header">
   <div class="header__back">
       <span class="back">
         <img src="img/arrow_left.svg" width="45" height="45" alt="Back">
@@ -41,47 +41,46 @@ const templateGameOne = `<header class="header">
     <img src=${game.lives.full} class="game__heart" alt="Life" width="32" height="32">
     <img src=${game.lives.full} class="game__heart" alt="Life" width="32" height="32">
   </div>
-</header>
+</header>`;
+
+const gameTask = `<p class="game__task">${game.task}</p>`;
+const gameOption = `<div class="game__option">
+  <img src=${game.options.none} alt="Option 1" width="468" height="458">
+  <label class="game__answer ${game.answers.photo}">
+    <input name="question1" type="radio" value="photo">
+    <span>Фото</span>
+  </label>
+  <label class="game__answer ${game.answers.paint}">
+    <input name="question1" type="radio" value="paint">
+    <span>Рисунок</span>
+  </label>
+</div>`;
+
+const gameStats = `<div class="stats">
+  <ul class="stats">
+    <li class="stats__result ${game.stats.wrong}"></li>
+    <li class="stats__result ${game.stats.slow}"></li>
+    <li class="stats__result ${game.stats.fast}"></li>
+    <li class="stats__result ${game.stats.correct}"></li>
+    <li class="stats__result ${game.stats.unknown}"></li>
+    <li class="stats__result ${game.stats.unknown}"></li>
+    <li class="stats__result ${game.stats.unknown}"></li>
+    <li class="stats__result ${game.stats.unknown}"></li>
+    <li class="stats__result ${game.stats.unknown}"></li>
+    <li class="stats__result ${game.stats.unknown}"></li>
+  </ul>
+</div>`;
+
+
+const templateGameOne = `
+  ${header}
 <div class="game">
-  <p class="game__task">${game.task}</p>
+  ${gameTask}
   <form class="game__content">
-    <div class="game__option">
-      <img src=${game.options.none} alt="Option 1" width="468" height="458">
-      <label class="game__answer game__answer--photo">
-        <input name="question1" type="radio" value="photo">
-        <span>Фото</span>
-      </label>
-      <label class="game__answer game__answer--paint">
-        <input name="question1" type="radio" value="paint">
-        <span>Рисунок</span>
-      </label>
-    </div>
-    <div class="game__option">
-      <img src=${game.options.none} alt="Option 2" width="468" height="458">
-      <label class="game__answer  game__answer--photo">
-        <input name="question2" type="radio" value="photo">
-        <span>Фото</span>
-      </label>
-      <label class="game__answer  game__answer--paint">
-        <input name="question2" type="radio" value="paint">
-        <span>Рисунок</span>
-      </label>
-    </div>
+    ${gameOption}
+    ${gameOption}
   </form>
-  <div class="stats">
-    <ul class="stats">
-      <li class="stats__result ${game.stats.wrong}"></li>
-      <li class="stats__result ${game.stats.slow}"></li>
-      <li class="stats__result ${game.stats.fast}"></li>
-      <li class="stats__result ${game.stats.correct}"></li>
-      <li class="stats__result ${game.stats.unknown}"></li>
-      <li class="stats__result ${game.stats.unknown}"></li>
-      <li class="stats__result ${game.stats.unknown}"></li>
-      <li class="stats__result ${game.stats.unknown}"></li>
-      <li class="stats__result ${game.stats.unknown}"></li>
-      <li class="stats__result ${game.stats.unknown}"></li>
-    </ul>
-  </div>
+    ${gameStats}
 </div>`;
 
 const gameOneElement = getElementFromTemplate(templateGameOne);
