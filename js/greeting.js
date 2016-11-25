@@ -1,6 +1,7 @@
 
-
 import getElementFromTemplate from './getElementFromTemplate';
+import select from './select';
+import rulesElement from './rules';
 
 const templateGreeting = `<div class="greeting  central--blur">
   <div class="greeting__logo"><img src="img/logo_big.png" width="201" height="89" alt="Pixel Hunter"></div>
@@ -17,5 +18,9 @@ const templateGreeting = `<div class="greeting  central--blur">
 </div>`;
 
 const greetingElement = getElementFromTemplate(templateGreeting);
+
+greetingElement.querySelector('.greeting__continue').addEventListener('click', () => {
+  select(rulesElement, greetingElement);
+});
 
 export default greetingElement;

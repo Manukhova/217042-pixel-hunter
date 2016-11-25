@@ -1,5 +1,7 @@
 
 import getElementFromTemplate from './getElementFromTemplate';
+import select from './select';
+import gameOneElement from './game-1';
 
 const templateRules = `<header class="header">
   <div class="header__back">
@@ -27,5 +29,20 @@ const templateRules = `<header class="header">
 </div>`;
 
 const rulesElement = getElementFromTemplate(templateRules);
+
+let rulesSubmit = rulesElement.querySelector('.rules__button');
+
+rulesElement.querySelector('.rules__input').oninput = () => {
+  if (rulesElement.querySelector('.rules__input').value) {
+    rulesSubmit.removeAttribute('disabled');
+  } else {
+    rulesSubmit.setAttribute('disabled', '');
+  }
+};
+
+rulesElement.querySelector('.rules__button').addEventListener('click', () => {
+  select(gameOneElement, rulesElement);
+});
+
 
 export default rulesElement;

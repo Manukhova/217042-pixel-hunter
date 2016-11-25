@@ -1,5 +1,7 @@
 
 import getElementFromTemplate from './getElementFromTemplate';
+import select from './select';
+import statsElement from './stats';
 
 const templateGameThree = `<header class="header">
   <div class="header__back">
@@ -45,5 +47,9 @@ const templateGameThree = `<header class="header">
 </div>`;
 
 const gameThreeElement = getElementFromTemplate(templateGameThree);
+
+gameThreeElement.querySelector('.game__option').addEventListener('click', () => {
+  select(statsElement, gameThreeElement);
+});
 
 export default gameThreeElement;
