@@ -1,5 +1,7 @@
 
 import getElementFromTemplate from './getElementFromTemplate';
+import select from './select';
+import gameThreeElement from './game-3';
 
 const templateGameTwo = `<header class="header">
   <div class="header__back">
@@ -47,5 +49,12 @@ const templateGameTwo = `<header class="header">
 </div>`;
 
 const gameTwoElement = getElementFromTemplate(templateGameTwo);
+
+gameTwoElement.querySelector('.game__content').addEventListener('click', (event) => {
+  event.preventDefault();
+  if (event.target.parentNode.classList.contains('game__answer')) {
+    select(gameThreeElement, gameTwoElement);
+  }
+});
 
 export default gameTwoElement;

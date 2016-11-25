@@ -1,5 +1,7 @@
 
 import getElementFromTemplate from './getElementFromTemplate';
+import select from './select';
+import introElement from './intro';
 
 const templateStats = `<header class="header">
   <div class="header__back">
@@ -111,5 +113,10 @@ const templateStats = `<header class="header">
 </div>`;
 
 const statsElement = getElementFromTemplate(templateStats);
+
+statsElement.querySelector('.header__back').addEventListener('click', () => {
+  event.preventDefault();
+  select(introElement, statsElement);
+});
 
 export default statsElement;

@@ -1,5 +1,7 @@
 
 import getElementFromTemplate from './getElementFromTemplate';
+import greetingElement from './greeting';
+import select from './select';
 
 const templateIntro = `<div id="intro" class="intro">
   <h1 class="intro__asterisk">*</h1>
@@ -8,5 +10,9 @@ const templateIntro = `<div id="intro" class="intro">
 </div>`;
 
 const introElement = getElementFromTemplate(templateIntro);
+
+introElement.querySelector('.intro__asterisk').addEventListener('click', () => {
+  select(greetingElement, introElement);
+});
 
 export default introElement;
