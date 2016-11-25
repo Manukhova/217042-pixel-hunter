@@ -3,6 +3,31 @@ import getElementFromTemplate from './getElementFromTemplate';
 import select from './select';
 import gameTwoElement from './game-2';
 
+const game = {
+  task: 'Угадайте для каждого изображения фото или рисунок?',
+  stats: {
+    fast: 'stats__result--fast',
+    slow: 'stats__result--slow',
+    wrong: 'stats__result--wrong',
+    correct: 'stats__result--correct',
+    unknown: 'stats__result--unknown'
+  },
+
+  lives: {
+    empty: 'img/heart__empty.svg',
+    full: 'img/heart__full.svg'
+  },
+
+  options: {
+    none: 'http://placehold.it/468x458'
+  },
+
+  answers: {
+    photo: 'game__answer--photo',
+    paint: 'game__answer--paint'
+  }
+};
+
 const templateGameOne = `<header class="header">
   <div class="header__back">
       <span class="back">
@@ -12,16 +37,16 @@ const templateGameOne = `<header class="header">
   </div>
   <h1 class="game__timer">NN</h1>
   <div class="game__lives">
-    <img src="img/heart__empty.svg" class="game__heart" alt="Life" width="32" height="32">
-    <img src="img/heart__full.svg" class="game__heart" alt="Life" width="32" height="32">
-    <img src="img/heart__full.svg" class="game__heart" alt="Life" width="32" height="32">
+    <img src=${game.lives.empty} class="game__heart" alt="Life" width="32" height="32">
+    <img src=${game.lives.full} class="game__heart" alt="Life" width="32" height="32">
+    <img src=${game.lives.full} class="game__heart" alt="Life" width="32" height="32">
   </div>
 </header>
 <div class="game">
-  <p class="game__task">Угадайте для каждого изображения фото или рисунок?</p>
+  <p class="game__task">${game.task}</p>
   <form class="game__content">
     <div class="game__option">
-      <img src="http://placehold.it/468x458" alt="Option 1" width="468" height="458">
+      <img src=${game.options.none} alt="Option 1" width="468" height="458">
       <label class="game__answer game__answer--photo">
         <input name="question1" type="radio" value="photo">
         <span>Фото</span>
@@ -32,7 +57,7 @@ const templateGameOne = `<header class="header">
       </label>
     </div>
     <div class="game__option">
-      <img src="http://placehold.it/468x458" alt="Option 2" width="468" height="458">
+      <img src=${game.options.none} alt="Option 2" width="468" height="458">
       <label class="game__answer  game__answer--photo">
         <input name="question2" type="radio" value="photo">
         <span>Фото</span>
@@ -45,16 +70,16 @@ const templateGameOne = `<header class="header">
   </form>
   <div class="stats">
     <ul class="stats">
-      <li class="stats__result stats__result--wrong"></li>
-      <li class="stats__result stats__result--slow"></li>
-      <li class="stats__result stats__result--fast"></li>
-      <li class="stats__result stats__result--correct"></li>
-      <li class="stats__result stats__result--unknown"></li>
-      <li class="stats__result stats__result--unknown"></li>
-      <li class="stats__result stats__result--unknown"></li>
-      <li class="stats__result stats__result--unknown"></li>
-      <li class="stats__result stats__result--unknown"></li>
-      <li class="stats__result stats__result--unknown"></li>
+      <li class="stats__result ${game.stats.wrong}"></li>
+      <li class="stats__result ${game.stats.slow}"></li>
+      <li class="stats__result ${game.stats.fast}"></li>
+      <li class="stats__result ${game.stats.correct}"></li>
+      <li class="stats__result ${game.stats.unknown}"></li>
+      <li class="stats__result ${game.stats.unknown}"></li>
+      <li class="stats__result ${game.stats.unknown}"></li>
+      <li class="stats__result ${game.stats.unknown}"></li>
+      <li class="stats__result ${game.stats.unknown}"></li>
+      <li class="stats__result ${game.stats.unknown}"></li>
     </ul>
   </div>
 </div>`;
