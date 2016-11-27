@@ -4,28 +4,24 @@ import select from './select';
 import gameTwoElement from './game-2';
 
 const game = {
+
   task: 'Угадайте для каждого изображения фото или рисунок?',
-  stats: {
-    fast: 'stats__result--fast',
-    slow: 'stats__result--slow',
-    wrong: 'stats__result--wrong',
-    correct: 'stats__result--correct',
-    unknown: 'stats__result--unknown'
-  },
 
-  lives: {
-    empty: 'img/heart__empty.svg',
-    full: 'img/heart__full.svg'
-  },
+  stats: ['wrong', 'slow', 'fast', 'correct', 'unknown', 'unknown', 'unknown', 'unknown', 'unknown', 'unknown'],
 
-  options: {
-    none: 'http://placehold.it/468x458'
-  },
+  lives: ['empty', 'full', 'full'],
 
-  answers: {
-    photo: 'game__answer--photo',
-    paint: 'game__answer--paint'
-  }
+  content: [
+    {
+      question: 'http://placehold.it/468x458',
+      answers: ['photo', 'paint']
+    },
+
+    {
+      question: 'http://placehold.it/468x458',
+      answers: ['photo', 'paint']
+    }
+  ]
 };
 
 const header = `<header class="header">
@@ -37,37 +33,15 @@ const header = `<header class="header">
   </div>
   <h1 class="game__timer">NN</h1>
   <div class="game__lives">
-    <img src=${game.lives.empty} class="game__heart" alt="Life" width="32" height="32">
-    <img src=${game.lives.full} class="game__heart" alt="Life" width="32" height="32">
-    <img src=${game.lives.full} class="game__heart" alt="Life" width="32" height="32">
+    ${game.lives.map((live) => `<img src="img/heart__${live}.svg" class="game__heart" alt="Life" width="32" height="32">`)}
   </div>
 </header>`;
 
 const gameTask = `<p class="game__task">${game.task}</p>`;
-const gameOption = `<div class="game__option">
-  <img src=${game.options.none} alt="Option 1" width="468" height="458">
-  <label class="game__answer ${game.answers.photo}">
-    <input name="question1" type="radio" value="photo">
-    <span>Фото</span>
-  </label>
-  <label class="game__answer ${game.answers.paint}">
-    <input name="question1" type="radio" value="paint">
-    <span>Рисунок</span>
-  </label>
-</div>`;
 
 const gameStats = `<div class="stats">
   <ul class="stats">
-    <li class="stats__result ${game.stats.wrong}"></li>
-    <li class="stats__result ${game.stats.slow}"></li>
-    <li class="stats__result ${game.stats.fast}"></li>
-    <li class="stats__result ${game.stats.correct}"></li>
-    <li class="stats__result ${game.stats.unknown}"></li>
-    <li class="stats__result ${game.stats.unknown}"></li>
-    <li class="stats__result ${game.stats.unknown}"></li>
-    <li class="stats__result ${game.stats.unknown}"></li>
-    <li class="stats__result ${game.stats.unknown}"></li>
-    <li class="stats__result ${game.stats.unknown}"></li>
+    ${game.stats.map((result) => `<li class="stats__result stats__result--${result}"></li>`)}
   </ul>
 </div>`;
 
@@ -77,8 +51,14 @@ const templateGameOne = `
 <div class="game">
   ${gameTask}
   <form class="game__content">
-    ${gameOption}
-    ${gameOption}
+    ${game.content.map((item, i) => `<div class="game__option">
+      <img src=${item.question} alt="Option ${i + 1}" width="468" height="458">
+        ${item.answers.map((answer) => `<label class="game__answer game__answer--${answer}">
+          <input name="question${i + 1}" type="radio" value="${answer}">
+          <span>Фото</span>
+        </label>
+    `)}
+    </div>`)}
   </form>
     ${gameStats}
 </div>`;
