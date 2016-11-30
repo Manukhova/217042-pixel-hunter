@@ -5,6 +5,14 @@ import statsElement from './stats';
 import introElement from './intro';
 import game from './game';
 
+const drawHeart = (full) => {
+  return `<img src="img/heart__${full ? 'full' : 'empty'}.svg" class="game__heart" alt="Life" width="32" height="32">`;
+};
+
+const drawHearts = (lives) => {
+  return new Array(3).fill(0).map((it, i) => drawHeart(i + 1 >= lives)).join('\n');
+};
+
 const headerThree = `<header class="header">
   <div class="header__back">
     <span class="back">
@@ -12,9 +20,9 @@ const headerThree = `<header class="header">
       <img src="img/logo_small.png" width="101" height="44">
     </span>
   </div>
-  <h1 class="game__timer">NN</h1>
+  <h1 class="game__timer">${game.time}</h1>
   <div class="game__lives">
-    ${game.lives.map((live) => `<img src="img/heart__${live}.svg" class="game__heart" alt="Life" width="32" height="32">`).join('\n')}
+    ${drawHearts(game.lives)}
   </div>
 </header>`;
 

@@ -12,7 +12,9 @@ const game = {
 
   statsThree: ['wrong', 'slow', 'fast', 'correct', 'wrong', 'unknown', 'slow', 'unknown', 'fast', 'unknown'],
 
-  lives: ['empty', 'full', 'full'],
+  lives: 2,
+
+  time: 'NN',
 
   contentOne: [
     {
@@ -46,6 +48,15 @@ const game = {
       question: 'http://placehold.it/304x455',
     }
   ]
+};
+
+export const drawHeart = (full) => {
+  return `<img src="img/heart__${full ? 'full' : 'empty'}.svg" class="game__heart" alt="Life" width="32" height="32">`;
+};
+
+
+export const drawHearts = (lives) => {
+  return new Array(3).fill(0).map((it, i) => drawHeart(i + 1 >= lives)).join('\n');
 };
 
 export default game;
