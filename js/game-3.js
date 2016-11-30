@@ -2,48 +2,48 @@
 import getElementFromTemplate from './getElementFromTemplate';
 import select from './select';
 import statsElement from './stats';
+import introElement from './intro';
+import game from './game';
 
-const templateGameThree = `<header class="header">
+const drawHeart = (full) => {
+  return `<img src="img/heart__${full ? 'full' : 'empty'}.svg" class="game__heart" alt="Life" width="32" height="32">`;
+};
+
+const drawHearts = (lives) => {
+  return new Array(3).fill(0).map((it, i) => drawHeart(i + 1 >= lives)).join('\n');
+};
+
+const headerThree = `<header class="header">
   <div class="header__back">
     <span class="back">
       <img src="img/arrow_left.svg" width="45" height="45" alt="Back">
       <img src="img/logo_small.png" width="101" height="44">
     </span>
   </div>
-  <h1 class="game__timer">NN</h1>
+  <h1 class="game__timer">${game.time}</h1>
   <div class="game__lives">
-    <img src="img/heart__empty.svg" class="game__heart" alt="Life" width="32" height="32">
-    <img src="img/heart__full.svg" class="game__heart" alt="Life" width="32" height="32">
-    <img src="img/heart__full.svg" class="game__heart" alt="Life" width="32" height="32">
+    ${drawHearts(game.lives)}
   </div>
-</header>
+</header>`;
+
+const gameTaskThree = `<p class="game__task">${game.taskThree}</p>`;
+
+const gameStatsThree = `<div class="stats">
+  <ul class="stats">
+    ${game.statsThree.map((result) => `<li class="stats__result stats__result--${result}"></li>`).join('\n')}
+  </ul>
+</div>`;
+
+const templateGameThree = `
+${headerThree}
 <div class="game">
-  <p class="game__task">Найдите рисунок среди изображений</p>
+    ${gameTaskThree}
   <form class="game__content  game__content--triple">
-    <div class="game__option">
-      <img src="http://placehold.it/304x455" alt="Option 1" width="304" height="455">
-    </div>
-    <div class="game__option  game__option--selected">
-      <img src="http://placehold.it/304x455" alt="Option 1" width="304" height="455">
-    </div>
-    <div class="game__option">
-      <img src="http://placehold.it/304x455" alt="Option 1" width="304" height="455">
-    </div>
+    ${game.contentThree.map((item, i) => `<div class="game__option">
+      <img src=${item.question} alt="Option 1" width="304" height="455">
+    </div>`).join('\n')}
   </form>
-  <div class="stats">
-    <ul class="stats">
-      <li class="stats__result stats__result--wrong"></li>
-      <li class="stats__result stats__result--slow"></li>
-      <li class="stats__result stats__result--fast"></li>
-      <li class="stats__result stats__result--correct"></li>
-      <li class="stats__result stats__result--wrong"></li>
-      <li class="stats__result stats__result--unknown"></li>
-      <li class="stats__result stats__result--slow"></li>
-      <li class="stats__result stats__result--unknown"></li>
-      <li class="stats__result stats__result--fast"></li>
-      <li class="stats__result stats__result--unknown"></li>
-    </ul>
-  </div>
+  ${gameStatsThree}
 </div>`;
 
 const gameThreeElement = getElementFromTemplate(templateGameThree);
@@ -54,5 +54,11 @@ gameThreeElement.querySelector('.game__content').addEventListener('click', () =>
     select(statsElement, gameThreeElement);
   }
 });
+
+gameThreeElement.querySelector('.header__back').addEventListener('click', () => {
+  event.preventDefault();
+  select(introElement, gameThreeElement);
+});
+
 
 export default gameThreeElement;

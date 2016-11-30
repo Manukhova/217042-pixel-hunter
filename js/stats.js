@@ -2,33 +2,31 @@
 import getElementFromTemplate from './getElementFromTemplate';
 import select from './select';
 import introElement from './intro';
+import game from './game';
 
-const templateStats = `<header class="header">
+const gameStats = `
+  <ul class="stats">
+    ${game.statsThree.map((result) => `<li class="stats__result stats__result--${result}"></li>`).join(' ')}
+  </ul>`;
+
+const headerStats = `<header class="header">
   <div class="header__back">
     <span class="back">
       <img src="img/arrow_left.svg" width="45" height="45" alt="Back">
       <img src="img/logo_small.png" width="101" height="44">
     </span>
   </div>
-</header>
+</header>`;
+
+const templateStats = `
+${headerStats}
 <div class="result">
   <h1>Победа!</h1>
   <table class="result__table">
     <tr>
       <td class="result__number">1.</td>
       <td colspan="2">
-        <ul class="stats">
-          <li class="stats__result stats__result--wrong"></li>
-          <li class="stats__result stats__result--slow"></li>
-          <li class="stats__result stats__result--fast"></li>
-          <li class="stats__result stats__result--correct"></li>
-          <li class="stats__result stats__result--wrong"></li>
-          <li class="stats__result stats__result--unknown"></li>
-          <li class="stats__result stats__result--slow"></li>
-          <li class="stats__result stats__result--unknown"></li>
-          <li class="stats__result stats__result--fast"></li>
-          <li class="stats__result stats__result--unknown"></li>
-        </ul>
+        ${gameStats}
       </td>
       <td class="result__points">×&nbsp;100</td>
       <td class="result__total">900</td>
@@ -62,18 +60,7 @@ const templateStats = `<header class="header">
     <tr>
       <td class="result__number">2.</td>
       <td>
-        <ul class="stats">
-          <li class="stats__result stats__result--wrong"></li>
-          <li class="stats__result stats__result--slow"></li>
-          <li class="stats__result stats__result--fast"></li>
-          <li class="stats__result stats__result--correct"></li>
-          <li class="stats__result stats__result--wrong"></li>
-          <li class="stats__result stats__result--unknown"></li>
-          <li class="stats__result stats__result--slow"></li>
-          <li class="stats__result stats__result--wrong"></li>
-          <li class="stats__result stats__result--fast"></li>
-          <li class="stats__result stats__result--wrong"></li>
-        </ul>
+        ${gameStats}
       </td>
       <td class="result__total"></td>
       <td class="result__total  result__total--final">fail</td>
@@ -83,18 +70,7 @@ const templateStats = `<header class="header">
     <tr>
       <td class="result__number">3.</td>
       <td colspan="2">
-        <ul class="stats">
-          <li class="stats__result stats__result--wrong"></li>
-          <li class="stats__result stats__result--slow"></li>
-          <li class="stats__result stats__result--fast"></li>
-          <li class="stats__result stats__result--correct"></li>
-          <li class="stats__result stats__result--wrong"></li>
-          <li class="stats__result stats__result--unknown"></li>
-          <li class="stats__result stats__result--slow"></li>
-          <li class="stats__result stats__result--unknown"></li>
-          <li class="stats__result stats__result--fast"></li>
-          <li class="stats__result stats__result--unknown"></li>
-        </ul>
+        ${gameStats}
       </td>
       <td class="result__points">×&nbsp;100</td>
       <td class="result__total">900</td>

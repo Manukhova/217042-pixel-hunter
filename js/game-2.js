@@ -2,50 +2,53 @@
 import getElementFromTemplate from './getElementFromTemplate';
 import select from './select';
 import gameThreeElement from './game-3';
+import introElement from './intro';
+import game from './game';
 
-const templateGameTwo = `<header class="header">
+const drawHeart = (full) => {
+  return `<img src="img/heart__${full ? 'full' : 'empty'}.svg" class="game__heart" alt="Life" width="32" height="32">`;
+};
+
+const drawHearts = (lives) => {
+  return new Array(3).fill(0).map((it, i) => drawHeart(i + 1 >= lives)).join('\n');
+};
+
+const headerTwo = `<header class="header">
   <div class="header__back">
-    <span class="back">
-      <img src="img/arrow_left.svg" width="45" height="45" alt="Back">
-      <img src="img/logo_small.png" width="101" height="44">
-    </span>
+      <span class="back">
+        <img src="img/arrow_left.svg" width="45" height="45" alt="Back">
+        <img src="img/logo_small.png" width="101" height="44">
+      </span>
   </div>
-  <h1 class="game__timer">NN</h1>
+  <h1 class="game__timer">${game.time}</h1>
   <div class="game__lives">
-    <img src="img/heart__empty.svg" class="game__heart" alt="Life" width="32" height="32">
-    <img src="img/heart__full.svg" class="game__heart" alt="Life" width="32" height="32">
-    <img src="img/heart__full.svg" class="game__heart" alt="Life" width="32" height="32">
+    ${drawHearts(game.lives)}
   </div>
-</header>
+</header>`;
+
+const gameTaskTwo = `<p class="game__task">${game.taskTwo}</p>`;
+
+const gameStatsTwo = `<div class="stats">
+  <ul class="stats">
+    ${game.statsTwo.map((result) => `<li class="stats__result stats__result--${result}"></li>`).join('\n')}
+  </ul>
+</div>`;
+
+const templateGameTwo = `
+${headerTwo}
 <div class="game">
-  <p class="game__task">Угадай, фото или рисунок?</p>
+  ${gameTaskTwo}
   <form class="game__content  game__content--wide">
-    <div class="game__option">
-      <img src="http://placehold.it/705x455" alt="Option 1" width="705" height="455">
-      <label class="game__answer  game__answer--photo">
-        <input name="question1" type="radio" value="photo">
-        <span>Фото</span>
-      </label>
-      <label class="game__answer  game__answer--wide  game__answer--paint">
-        <input name="question1" type="radio" value="paint">
-        <span>Рисунок</span>
-      </label>
-    </div>
+    ${game.contentTwo.map((item, i) => `<div class="game__option">
+      <img src=${item.question} alt="Option ${i + 1}" width="705" height="455">
+        ${item.answers.map((answer) => `<label class="game__answer game__answer--${answer}">
+          <input name="question${i + 1}" type="radio" value="${answer}">
+          <span>Фото</span>
+        </label>
+    `).join('\n')}
+    </div>`).join('\n')}
   </form>
-  <div class="stats">
-    <ul class="stats">
-      <li class="stats__result stats__result--wrong"></li>
-      <li class="stats__result stats__result--slow"></li>
-      <li class="stats__result stats__result--fast"></li>
-      <li class="stats__result stats__result--correct"></li>
-      <li class="stats__result stats__result--wrong"></li>
-      <li class="stats__result stats__result--unknown"></li>
-      <li class="stats__result stats__result--slow"></li>
-      <li class="stats__result stats__result--unknown"></li>
-      <li class="stats__result stats__result--fast"></li>
-      <li class="stats__result stats__result--unknown"></li>
-    </ul>
-  </div>
+  ${gameStatsTwo}
 </div>`;
 
 const gameTwoElement = getElementFromTemplate(templateGameTwo);
@@ -56,5 +59,11 @@ gameTwoElement.querySelector('.game__content').addEventListener('click', (event)
     select(gameThreeElement, gameTwoElement);
   }
 });
+
+gameTwoElement.querySelector('.header__back').addEventListener('click', () => {
+  event.preventDefault();
+  select(introElement, gameTwoElement);
+});
+
 
 export default gameTwoElement;
