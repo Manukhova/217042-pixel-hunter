@@ -3,15 +3,7 @@ import getElementFromTemplate from './getElementFromTemplate';
 import select from './select';
 import gameThreeElement from './game-3';
 import introElement from './intro';
-import game from './game';
-
-const drawHeart = (full) => {
-  return `<img src="img/heart__${full ? 'full' : 'empty'}.svg" class="game__heart" alt="Life" width="32" height="32">`;
-};
-
-const drawHearts = (lives) => {
-  return new Array(3).fill(0).map((it, i) => drawHeart(i + 1 >= lives)).join('\n');
-};
+import {game, drawHearts} from './game';
 
 const headerTwo = `<header class="header">
   <div class="header__back">
@@ -41,11 +33,11 @@ ${headerTwo}
   <form class="game__content  game__content--wide">
     ${game.contentTwo.map((item, i) => `<div class="game__option">
       <img src=${item.question} alt="Option ${i + 1}" width="705" height="455">
-        ${item.answers.map((answer) => `<label class="game__answer game__answer--${answer}">
+        ${item.answers.forEach((answer) => `<label class="game__answer game__answer--${answer}">
           <input name="question${i + 1}" type="radio" value="${answer}">
           <span>Фото</span>
         </label>
-    `).join('\n')}
+    `)}
     </div>`).join('\n')}
   </form>
   ${gameStatsTwo}

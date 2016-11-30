@@ -2,7 +2,7 @@
 import getElementFromTemplate from './getElementFromTemplate';
 import select from './select';
 import introElement from './intro';
-import game from './game';
+import {game} from './game';
 
 const gameStats = `
   <ul class="stats">

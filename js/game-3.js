@@ -3,15 +3,8 @@ import getElementFromTemplate from './getElementFromTemplate';
 import select from './select';
 import statsElement from './stats';
 import introElement from './intro';
-import game from './game';
+import {game, drawHearts} from './game';
 
-const drawHeart = (full) => {
-  return `<img src="img/heart__${full ? 'full' : 'empty'}.svg" class="game__heart" alt="Life" width="32" height="32">`;
-};
-
-const drawHearts = (lives) => {
-  return new Array(3).fill(0).map((it, i) => drawHeart(i + 1 >= lives)).join('\n');
-};
 
 const headerThree = `<header class="header">
   <div class="header__back">
@@ -39,9 +32,9 @@ ${headerThree}
 <div class="game">
     ${gameTaskThree}
   <form class="game__content  game__content--triple">
-    ${game.contentThree.map((item, i) => `<div class="game__option">
+    ${game.contentThree.forEach((item, i) => `<div class="game__option">
       <img src=${item.question} alt="Option 1" width="304" height="455">
-    </div>`).join('\n')}
+    </div>`)}
   </form>
   ${gameStatsThree}
 </div>`;

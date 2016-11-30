@@ -1,4 +1,6 @@
-const game = {
+const answers = ['photo', 'paint'];
+
+export const game = {
 
   taskOne: 'Угадайте для каждого изображения фото или рисунок?',
 
@@ -19,19 +21,18 @@ const game = {
   contentOne: [
     {
       question: 'http://placehold.it/468x458',
-      answers: ['photo', 'paint']
+      answers
     },
 
     {
       question: 'http://placehold.it/468x458',
-      answers: ['photo', 'paint']
-    }
-  ],
+      answers
+    }],
 
   contentTwo: [
     {
       question: 'http://placehold.it/705x455',
-      answers: ['photo', 'paint']
+      answers
     }
   ],
 
@@ -50,7 +51,7 @@ const game = {
   ]
 };
 
-export const drawHeart = (full) => {
+const drawHeart = (full) => {
   return `<img src="img/heart__${full ? 'full' : 'empty'}.svg" class="game__heart" alt="Life" width="32" height="32">`;
 };
 
@@ -58,5 +59,3 @@ export const drawHeart = (full) => {
 export const drawHearts = (lives) => {
   return new Array(3).fill(0).map((it, i) => drawHeart(i + 1 >= lives)).join('\n');
 };
-
-export default game;

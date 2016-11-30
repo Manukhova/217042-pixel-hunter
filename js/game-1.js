@@ -3,15 +3,7 @@ import getElementFromTemplate from './getElementFromTemplate';
 import select from './select';
 import gameTwoElement from './game-2';
 import introElement from './intro';
-import game from './game';
-
-const drawHeart = (full) => {
-  return `<img src="img/heart__${full ? 'full' : 'empty'}.svg" class="game__heart" alt="Life" width="32" height="32">`;
-};
-
-const drawHearts = (lives) => {
-  return new Array(3).fill(0).map((it, i) => drawHeart(i + 1 >= lives)).join('\n');
-};
+import {game, drawHearts} from './game';
 
 
 const headerOne = `<header class="header">
