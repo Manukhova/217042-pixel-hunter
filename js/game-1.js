@@ -14,7 +14,7 @@ const headerOne = `<header class="header">
   </div>
   <h1 class="game__timer">NN</h1>
   <div class="game__lives">
-    ${game.lives.map((live) => `<img src="img/heart__${live}.svg" class="game__heart" alt="Life" width="32" height="32">`).join(' ')}
+    ${game.lives.map((live) => `<img src="img/heart__${live}.svg" class="game__heart" alt="Life" width="32" height="32">`).join('\n')}
   </div>
 </header>`;
 
@@ -22,7 +22,7 @@ const gameTaskOne = `<p class="game__task">${game.taskOne}</p>`;
 
 const gameStatsOne = `<div class="stats">
   <ul class="stats">
-    ${game.statsOne.map((result) => `<li class="stats__result stats__result--${result}"></li>`).join(' ')}
+    ${game.statsOne.map((result) => `<li class="stats__result stats__result--${result}"></li>`).join('\n')}
   </ul>
 </div>`;
 
@@ -37,8 +37,8 @@ const templateGameOne = `
           <input name="question${i + 1}" type="radio" value="${answer}">
           <span>Фото</span>
         </label>
-    `).join(' ')}
-    </div>`).join(' ')}
+    `).join('\n')}
+    </div>`).join('\n')}
   </form>
     ${gameStatsOne}
 </div>`;

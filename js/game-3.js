@@ -14,7 +14,7 @@ const headerThree = `<header class="header">
   </div>
   <h1 class="game__timer">NN</h1>
   <div class="game__lives">
-    ${game.lives.map((live) => `<img src="img/heart__${live}.svg" class="game__heart" alt="Life" width="32" height="32">`).join(' ')}
+    ${game.lives.map((live) => `<img src="img/heart__${live}.svg" class="game__heart" alt="Life" width="32" height="32">`).join('\n')}
   </div>
 </header>`;
 
@@ -22,7 +22,7 @@ const gameTaskThree = `<p class="game__task">${game.taskThree}</p>`;
 
 const gameStatsThree = `<div class="stats">
   <ul class="stats">
-    ${game.statsThree.map((result) => `<li class="stats__result stats__result--${result}"></li>`).join(' ')}
+    ${game.statsThree.map((result) => `<li class="stats__result stats__result--${result}"></li>`).join('\n')}
   </ul>
 </div>`;
 
@@ -33,7 +33,7 @@ ${headerThree}
   <form class="game__content  game__content--triple">
     ${game.contentThree.map((item, i) => `<div class="game__option">
       <img src=${item.question} alt="Option 1" width="304" height="455">
-    </div>`).join(' ')}
+    </div>`).join('\n')}
   </form>
   ${gameStatsThree}
 </div>`;
