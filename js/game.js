@@ -27,7 +27,8 @@ export const game = {
     {
       question: 'http://placehold.it/468x458',
       answers
-    }],
+    }
+  ],
 
   contentTwo: [
     {
