@@ -1,8 +1,9 @@
 
 import getElementFromTemplate from './getElementFromTemplate';
 import select from './select';
-import gameOneElement from './game-1';
-import {game} from './game';
+// import gameOneElement from './game-1';
+import {content} from './game';
+import drawGameScreen from './gameContent';
 
 const templateRules = `<header class="header">
   <div class="header__back">
@@ -41,9 +42,10 @@ rulesElement.querySelector('.rules__input').oninput = () => {
   }
 };
 
+
 rulesElement.querySelector('.rules__button').addEventListener('click', (event) => {
   event.preventDefault();
-  select(gameOneElement(game), rulesElement);
+  select(drawGameScreen(content[0]), rulesElement);
 });
 
 

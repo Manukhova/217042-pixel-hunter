@@ -1,55 +1,40 @@
 const answers = ['photo', 'paint'];
 
+export const content = [
+  {
+    questions: [
+      'http://placehold.it/468x458',
+      'http://placehold.it/468x458'
+    ],
+    answers,
+    task: 'Угадайте для каждого изображения фото или рисунок?'
+  },
+  {
+    questions: [
+      'http://placehold.it/705x455'
+    ],
+    answers,
+    task: 'Угадай, фото или рисунок?'
+  },
+  {
+    questions: [
+      'http://placehold.it/304x455',
+      'http://placehold.it/304x455',
+      'http://placehold.it/304x455'
+    ],
+    answers,
+    task: 'Найдите рисунок среди изображений'
+  }
+];
+
 export const game = {
 
-  taskOne: 'Угадайте для каждого изображения фото или рисунок?',
-
-  taskTwo: 'Угадай, фото или рисунок?',
-
-  taskThree: 'Найдите рисунок среди изображений',
-
-  statsOne: ['wrong', 'slow', 'fast', 'correct', 'unknown', 'unknown', 'unknown', 'unknown', 'unknown', 'unknown'],
-
-  statsTwo: ['wrong', 'slow', 'fast', 'correct', 'wrong', 'unknown', 'slow', 'unknown', 'fast', 'unknown'],
-
-  statsThree: ['wrong', 'slow', 'fast', 'correct', 'wrong', 'unknown', 'slow', 'unknown', 'fast', 'unknown'],
+  stats: ['wrong', 'slow', 'fast', 'correct', 'unknown', 'unknown', 'unknown', 'unknown', 'unknown', 'unknown'],
 
   lives: 2,
 
   time: 'NN',
 
-  contentOne: [
-    {
-      question: 'http://placehold.it/468x458',
-      answers
-    },
-
-    {
-      question: 'http://placehold.it/468x458',
-      answers
-    }
-  ],
-
-  contentTwo: [
-    {
-      question: 'http://placehold.it/705x455',
-      answers
-    }
-  ],
-
-  contentThree: [
-    {
-      question: 'http://placehold.it/304x455',
-    },
-
-    {
-      question: 'http://placehold.it/304x455',
-    },
-
-    {
-      question: 'http://placehold.it/304x455',
-    }
-  ]
 };
 
 const drawHeart = (full) => {

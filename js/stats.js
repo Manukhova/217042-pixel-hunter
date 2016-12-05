@@ -6,7 +6,7 @@ import {game} from './game';
 
 const gameStats = `
   <ul class="stats">
-    ${game.statsThree.map((result) => `<li class="stats__result stats__result--${result}"></li>`).join(' ')}
+    ${game.stats.map((result) => `<li class="stats__result stats__result--${result}"></li>`).join(' ')}
   </ul>`;
 
 const headerStats = `<header class="header">

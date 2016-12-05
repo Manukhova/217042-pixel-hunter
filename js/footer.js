@@ -1,5 +1,7 @@
-export default (data) => `<div class="stats">
+import {game} from './game';
+
+export default () => `<div class="stats">
   <ul class="stats">
-    ${data.statsOne.map((result) => `<li class="stats__result stats__result--${result}"></li>`).join('\n')}
+    ${game.stats.map((result) => `<li class="stats__result stats__result--${result}"></li>`).join('\n')}
   </ul>
 </div>`;
