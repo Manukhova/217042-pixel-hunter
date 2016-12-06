@@ -1,7 +1,7 @@
 import header from './header';
 import gameStats from './footer';
 import getElementFromTemplate from './getElementFromTemplate';
-
+import gameContent from './gameContent';
 import introElement from './intro';
 import select from './select';
 import {content} from './game';
@@ -9,38 +9,16 @@ import statsElement from './stats';
 
 const drawGameScreen = (options) => {
 
-  const gameContent = () => {
+  const gameForm = () => {
     switch (options.questions.length) {
       case 2:
-        return `<form class="game__content">
-        ${options.questions.map((item, i) => `<div class="game__option">
-        <img src=${item} alt="Option ${i + 1}" width="468" height="458">
-          ${options.answers.map((answer) => `<label class="game__answer game__answer--${answer}">
-            <input name="question${i + 1}" type="radio" value="${answer}">
-            <span>Фото</span>
-          </label>
-      `).join('\n')}
-      </div>`).join('\n')}
-    </form>`;
+        return `<form class="game__content">${gameContent(options)}</form>`;
 
       case 1:
-        return `<form class="game__content  game__content--wide">
-        ${options.questions.map((item, i) => `<div class="game__option">
-      <img src=${item} alt="Option ${i + 1}" width="705" height="455">
-        ${options.answers.map((answer) => `<label class="game__answer game__answer--${answer}">
-          <input name="question${i + 1}" type="radio" value="${answer}">
-          <span>Фото</span>
-        </label>
-      `).join('\n')}
-      </div>`).join('\n')}
-    </form>`;
+        return `<form class="game__content  game__content--wide">${gameContent(options)}</form>`;
 
       case 3:
-        return `<form class="game__content  game__content--triple">
-          ${options.questions.map((item, i) => `<div class="game__option">
-          <img src=${item} alt="Option ${i + 1}" width="304" height="455">
-          </div>`).join('\n')}
-        </form>`;
+        return `<form class="game__content  game__content--triple">${gameContent(options)}</form>`;
     }
   };
 
@@ -48,12 +26,11 @@ const drawGameScreen = (options) => {
   ${header()}
   <div class="game">
    ${options.task}
-   ${gameContent(options)}
+   ${gameForm(options)}
    ${gameStats()}
   </div>`;
 
   const index = content.indexOf(options) + 1;
-
 
   const gameElement = getElementFromTemplate(templateGame);
 
