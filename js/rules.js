@@ -3,7 +3,7 @@ import getElementFromTemplate from './getElementFromTemplate';
 import select from './select';
 // import gameOneElement from './game-1';
 import {content} from './game';
-import drawGameScreen from './gameContent';
+import drawGameScreen from './drawGameScreen';
 
 const templateRules = `<header class="header">
   <div class="header__back">
