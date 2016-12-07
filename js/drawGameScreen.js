@@ -10,14 +10,19 @@ import statsElement from './stats';
 const drawGameScreen = (options) => {
 
   const formClassList = () => {
+    let formClass;
     switch (options.questions.length) {
       case 2:
-        return '';
+        formClass = '';
+        break;
       case 1:
-        return '--wide';
+        formClass = '--wide';
+        break;
       case 3:
-        return '--triple';
+        formClass = '--triple';
+        break;
     }
+    return formClass;
   };
 
   const gameForm = `<form class="game__content  game__content${formClassList(options)}">${gameContent(options)}</form>`;
