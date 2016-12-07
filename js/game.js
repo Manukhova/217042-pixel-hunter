@@ -24,6 +24,62 @@ export const content = [
     ],
     answers,
     task: 'Найдите рисунок среди изображений'
+  },
+  {
+    questions: [
+      'http://placehold.it/468x458',
+      'http://placehold.it/468x458'
+    ],
+    answers,
+    task: 'Угадайте для каждого изображения фото или рисунок?'
+  },
+  {
+    questions: [
+      'http://placehold.it/304x455',
+      'http://placehold.it/304x455',
+      'http://placehold.it/304x455'
+    ],
+    answers,
+    task: 'Найдите рисунок среди изображений'
+  },
+  {
+    questions: [
+      'http://placehold.it/304x455',
+      'http://placehold.it/304x455',
+      'http://placehold.it/304x455'
+    ],
+    answers,
+    task: 'Найдите рисунок среди изображений'
+  },
+  {
+    questions: [
+      'http://placehold.it/705x455'
+    ],
+    answers,
+    task: 'Угадай, фото или рисунок?'
+  },
+  {
+    questions: [
+      'http://placehold.it/468x458',
+      'http://placehold.it/468x458'
+    ],
+    answers,
+    task: 'Угадайте для каждого изображения фото или рисунок?'
+  },
+  {
+    questions: [
+      'http://placehold.it/705x455'
+    ],
+    answers,
+    task: 'Угадай, фото или рисунок?'
+  },
+  {
+    questions: [
+      'http://placehold.it/468x458',
+      'http://placehold.it/468x458'
+    ],
+    answers,
+    task: 'Угадайте для каждого изображения фото или рисунок?'
   }
 ];
 

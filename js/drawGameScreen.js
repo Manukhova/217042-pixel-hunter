@@ -12,7 +12,7 @@ const drawGameScreen = (options) => {
   const formClassList = () => {
     switch (options.questions.length) {
       case 2:
-        return ' ';
+        return '';
       case 1:
         return '--wide';
       case 3:
