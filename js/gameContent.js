@@ -24,7 +24,7 @@ export default (options) => {
 </div>`).join('\n')}`;
       break;
 
-    case 3:
+    default:
       gameQuestion = `${options.questions.map((item, i) => `<div class="game__option">
     <img src=${item} alt="Option ${i + 1}" width="304" height="455">
     </div>`).join('\n')}`;
