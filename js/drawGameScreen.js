@@ -9,24 +9,24 @@ import statsElement from './stats';
 
 const drawGameScreen = (options) => {
 
-  const gameForm = () => {
+  const formClassList = () => {
     switch (options.questions.length) {
       case 2:
-        return `<form class="game__content">${gameContent(options)}</form>`;
-
+        return ' ';
       case 1:
-        return `<form class="game__content  game__content--wide">${gameContent(options)}</form>`;
-
+        return '--wide';
       case 3:
-        return `<form class="game__content  game__content--triple">${gameContent(options)}</form>`;
+        return '--triple';
     }
   };
+
+  const gameForm = `<form class="game__content  game__content${formClassList(options)}">${gameContent(options)}</form>`;
 
   const templateGame = `
   ${header()}
   <div class="game">
    ${options.task}
-   ${gameForm(options)}
+   ${gameForm}
    ${gameStats()}
   </div>`;
 
