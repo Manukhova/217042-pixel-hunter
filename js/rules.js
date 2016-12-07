@@ -1,7 +1,6 @@
 
 import getElementFromTemplate from './getElementFromTemplate';
 import select from './select';
-// import gameOneElement from './game-1';
 import {content} from './game';
 import drawGameScreen from './drawGameScreen';
 
