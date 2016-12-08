@@ -1,3 +1,4 @@
+
 const answers = ['photo', 'paint'];
 
 export const bonus = {
@@ -14,7 +15,6 @@ export const constraints = {
   timeSlow: 20,
   timeFast: 10
 };
-
 
 export const content = [
   {
@@ -186,9 +186,27 @@ export const game = {
 
   time: 0,
 
-  level: 0
-
+  level: 0,
 };
+
+// let gameState = game;
+//
+// const update = () => {
+//   header(gameState);
+// };
+//
+// export const setTimer = () => {
+//   update();
+//   setInterval((sec) => {
+//     gameState = setTime(gameState, gameState.time + 1);
+//     header(gameState);
+//   }, 1000);
+// };
+//
+// export const changeGame = (state = game) => {
+//   gameState = state;
+//   setTimer();
+// };
 
 const drawHeart = (full) => {
   return `<img src="img/heart__${full ? 'empty' : 'full'}.svg" class="game__heart" alt="Life" width="32" height="32">`;
@@ -228,6 +246,5 @@ export const getLevel = (num) => {
   if (!hasLevel(num)) {
     throw new RangeError(`This game has no level ${num}`);
   }
-
   return content[num];
 };
