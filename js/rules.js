@@ -1,8 +1,7 @@
-
 import getElementFromTemplate from './getElementFromTemplate';
-import select from './select';
+// import select from './select';
 import {content} from './game';
-import drawGameScreen from './drawGameScreen';
+import {drawLevel} from './drawLevel';
 
 const templateRules = `<header class="header">
   <div class="header__back">
@@ -44,7 +43,8 @@ rulesElement.querySelector('.rules__input').oninput = () => {
 
 rulesElement.querySelector('.rules__button').addEventListener('click', (event) => {
   event.preventDefault();
-  select(drawGameScreen(content[0]), rulesElement);
+  drawLevel((content[0]), rulesElement);
+
 });
 
 

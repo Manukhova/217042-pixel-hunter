@@ -1,4 +1,3 @@
-
 import getElementFromTemplate from './getElementFromTemplate';
 import select from './select';
 import rulesElement from './rules';

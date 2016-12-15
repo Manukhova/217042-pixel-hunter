@@ -1,5 +1,4 @@
-
-const answers = ['photo', 'paint'];
+export const answers = ['photo', 'paint'];
 
 export const bonus = {
   RIGHT: 100,
@@ -31,7 +30,8 @@ export const content = [
       }
     ],
     answers,
-    task: 'Угадайте для каждого изображения фото или рисунок?'
+    task: 'Угадайте для каждого изображения фото или рисунок?',
+    questionNumber: 2
   },
   {
     questions: [
@@ -42,139 +42,41 @@ export const content = [
       }
     ],
     answers,
-    task: 'Угадай, фото или рисунок?'
+    task: 'Угадай, фото или рисунок?',
+    questionNumber: 1
   },
   {
     questions: [
       {
         url: 'http://placehold.it/304x455',
-        type: 'photo'
+        type: 'photo',
+        name: 'Option 1'
       },
       {
         url: 'http://placehold.it/304x455',
-        type: 'photo'
+        type: 'photo',
+        name: 'Option 2'
       },
       {
         url: 'http://placehold.it/304x455',
-        type: 'paint'
+        type: 'paint',
+        name: 'Option 3'
       }
     ],
-    task: 'Найдите рисунок среди изображений'
-  },
-  {
-    questions: [
-      {
-        name: 'question1',
-        url: 'http://placehold.it/468x458',
-        type: 'photo'
-      },
-      {
-        name: 'question2',
-        url: 'http://placehold.it/468x458',
-        type: 'photo'
-      }
-    ],
-    answers,
-    task: 'Угадайте для каждого изображения фото или рисунок?'
+    task: 'Найдите рисунок среди изображений',
+    questionNumber: 3
   },
   {
     questions: [
       {
         name: 'question1',
-        url: 'http://placehold.it/468x458',
-        type: 'paint'
-      },
-      {
-        name: 'question2',
-        url: 'http://placehold.it/468x458',
+        url: 'http://placehold.it/705x455',
         type: 'paint'
       }
     ],
     answers,
-    task: 'Угадайте для каждого изображения фото или рисунок?'
-  },
-  {
-    questions: [
-      {
-        url: 'http://placehold.it/304x455',
-        type: 'paint'
-      },
-      {
-        url: 'http://placehold.it/304x455',
-        type: 'photo'
-      },
-      {
-        url: 'http://placehold.it/304x455',
-        type: 'photo'
-      }
-    ],
-    task: 'Найдите рисунок среди изображений'
-  },
-  {
-    questions: [
-      {
-        url: 'http://placehold.it/304x455',
-        type: 'photo'
-      },
-      {
-        url: 'http://placehold.it/304x455',
-        type: 'photo'
-      },
-      {
-        url: 'http://placehold.it/304x455',
-        type: 'paint'
-      }
-    ],
-    task: 'Найдите рисунок среди изображений'
-  },
-  {
-    questions: [
-      {
-        url: 'http://placehold.it/304x455',
-        type: 'photo'
-      },
-      {
-        url: 'http://placehold.it/304x455',
-        type: 'photo'
-      },
-      {
-        url: 'http://placehold.it/304x455',
-        type: 'paint'
-      }
-    ],
-    task: 'Найдите рисунок среди изображений'
-  },
-  {
-    questions: [
-      {
-        name: 'question1',
-        url: 'http://placehold.it/468x458',
-        type: 'photo'
-      },
-      {
-        name: 'question2',
-        url: 'http://placehold.it/468x458',
-        type: 'photo'
-      }
-    ],
-    answers,
-    task: 'Угадайте для каждого изображения фото или рисунок?'
-  },
-  {
-    questions: [
-      {
-        name: 'question1',
-        url: 'http://placehold.it/468x458',
-        type: 'photo'
-      },
-      {
-        name: 'question2',
-        url: 'http://placehold.it/468x458',
-        type: 'photo'
-      }
-    ],
-    answers,
-    task: 'Угадайте для каждого изображения фото или рисунок?'
+    task: 'Угадай, фото или рисунок?',
+    questionNumber: 1
   }
 ];
 
@@ -189,25 +91,6 @@ export const game = {
   level: 0,
 };
 
-// let gameState = game;
-//
-// const update = () => {
-//   header(gameState);
-// };
-//
-// export const setTimer = () => {
-//   update();
-//   setInterval((sec) => {
-//     gameState = setTime(gameState, gameState.time + 1);
-//     header(gameState);
-//   }, 1000);
-// };
-//
-// export const changeGame = (state = game) => {
-//   gameState = state;
-//   setTimer();
-// };
-
 const drawHeart = (full) => {
   return `<img src="img/heart__${full ? 'empty' : 'full'}.svg" class="game__heart" alt="Life" width="32" height="32">`;
 };
@@ -215,36 +98,4 @@ const drawHeart = (full) => {
 
 export const drawHearts = (lives) => {
   return new Array(3).fill(0).map((it, i) => drawHeart(i >= lives)).join('\n');
-};
-
-export const setCurrentLevel = (currentGame, level) => {
-  return Object.assign({}, currentGame, {
-    level: level
-  });
-};
-
-
-export const setTime = (currentGame, time) => {
-  return Object.assign({}, currentGame, {
-    time: time
-  });
-};
-
-export const setLives = (currentGame, lives) => {
-  if (lives < 0) {
-    throw new RangeError('Number of lives can\'t be negative');
-  }
-
-  return Object.assign({}, currentGame, {
-    lives: lives
-  });
-};
-
-export const hasLevel = (num) => typeof content[num] !== 'undefined';
-
-export const getLevel = (num) => {
-  if (!hasLevel(num)) {
-    throw new RangeError(`This game has no level ${num}`);
-  }
-  return content[num];
 };

@@ -1,4 +1,3 @@
-
 import getElementFromTemplate from './getElementFromTemplate';
 import greetingElement from './greeting';
 import select from './select';

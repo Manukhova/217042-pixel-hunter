@@ -1,24 +1,9 @@
 import {drawHearts, game} from './game';
+import getElementFromTemplate from './getElementFromTemplate';
 
-// let header = () => {
-//   return `<header class="header">
-//     <div class="header__back">
-//         <span class="back">
-//           <img src="img/arrow_left.svg" width="45" height="45" alt="Back">
-//           <img src="img/logo_small.png" width="101" height="44">
-//         </span>
-//     </div>
-//     <h1 class="game__timer">${setTimer(game.time)}</h1>
-//     <div class="game__lives">
-//       ${drawHearts(game.lives)}
-//     </div>
-//   </header>`;
-// };
 
-const header = document.createElement('div');
-
-export default () => {
-  header.innerHTML = `<header class="header">
+const header = () => {
+  const templateHeader = `<header class="header">
     <div class="header__back">
         <span class="back">
           <img src="img/arrow_left.svg" width="45" height="45" alt="Back">
@@ -31,5 +16,30 @@ export default () => {
     </div>
   </header>`;
 
-  return header;
+  const headerElement = getElementFromTemplate(templateHeader);
+
+  return headerElement;
 };
+
+
+export default header;
+
+
+// const header = document.createElement('div');
+//
+// export default () => {
+//   header.innerHTML = `<header class="header">
+//     <div class="header__back">
+//         <span class="back">
+//           <img src="img/arrow_left.svg" width="45" height="45" alt="Back">
+//           <img src="img/logo_small.png" width="101" height="44">
+//         </span>
+//     </div>
+//     <h1 class="game__timer">${game.time}</h1>
+//     <div class="game__lives">
+//       ${drawHearts(game.lives)}
+//     </div>
+//   </header>`;
+//
+//   return header;
+// };
