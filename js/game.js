@@ -9,7 +9,7 @@ export const bonus = {
 
 export const constraints = {
   timeLimit: 30,
-  levelLimit: 3,
+  levelLimit: 10,
   livesLimit: 0,
   timeSlow: 20,
   timeFast: 10
@@ -77,6 +77,102 @@ export const content = [
     answers,
     task: 'Угадай, фото или рисунок?',
     questionNumber: 1
+  },
+  {
+    questions: [
+      {
+        name: 'question1',
+        url: 'http://placehold.it/468x458',
+        type: 'photo'
+      },
+      {
+        name: 'question2',
+        url: 'http://placehold.it/468x458',
+        type: 'photo'
+      }
+    ],
+    answers,
+    task: 'Угадайте для каждого изображения фото или рисунок?',
+    questionNumber: 2
+  },
+  {
+    questions: [
+      {
+        name: 'question1',
+        url: 'http://placehold.it/468x458',
+        type: 'photo'
+      },
+      {
+        name: 'question2',
+        url: 'http://placehold.it/468x458',
+        type: 'photo'
+      }
+    ],
+    answers,
+    task: 'Угадайте для каждого изображения фото или рисунок?',
+    questionNumber: 2
+  },
+  {
+    questions: [
+      {
+        url: 'http://placehold.it/304x455',
+        type: 'photo',
+        name: 'Option 1'
+      },
+      {
+        url: 'http://placehold.it/304x455',
+        type: 'photo',
+        name: 'Option 2'
+      },
+      {
+        url: 'http://placehold.it/304x455',
+        type: 'paint',
+        name: 'Option 3'
+      }
+    ],
+    task: 'Найдите рисунок среди изображений',
+    questionNumber: 3
+  },
+  {
+    questions: [
+      {
+        name: 'question1',
+        url: 'http://placehold.it/705x455',
+        type: 'paint'
+      }
+    ],
+    answers,
+    task: 'Угадай, фото или рисунок?',
+    questionNumber: 1
+  },
+  {
+    questions: [
+      {
+        name: 'question1',
+        url: 'http://placehold.it/705x455',
+        type: 'paint'
+      }
+    ],
+    answers,
+    task: 'Угадай, фото или рисунок?',
+    questionNumber: 1
+  },
+  {
+    questions: [
+      {
+        name: 'question1',
+        url: 'http://placehold.it/468x458',
+        type: 'photo'
+      },
+      {
+        name: 'question2',
+        url: 'http://placehold.it/468x458',
+        type: 'photo'
+      }
+    ],
+    answers,
+    task: 'Угадайте для каждого изображения фото или рисунок?',
+    questionNumber: 2
   }
 ];
 

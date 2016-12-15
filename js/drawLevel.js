@@ -15,6 +15,9 @@ export const setCurrentLevel = (currentGame, level) => {
 };
 
 export const setTime = (currentGame, time) => {
+  if (time < 0) {
+    throw new RangeError('Time can\'t be negative');
+  }
   return Object.assign({}, currentGame, {
     time: time
   });

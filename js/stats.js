@@ -70,7 +70,15 @@ const stats = () => {
 
   const slowResult = slowArr.length * bonus.SLOW;
 
-  const totalResult = draftResult + fastResult + livesResult + slowResult;
+  const returnTotalResult = () => {
+    let totalResult;
+    if (wrongArr.length === game.stats.length) {
+      totalResult = 'FAIL!';
+    } else {
+      totalResult = draftResult + fastResult + livesResult + slowResult;
+    }
+    return totalResult;
+  };
 
   const templateStats = `
   ${headerStats}
@@ -107,7 +115,7 @@ const stats = () => {
         <td class="result__total">${slowResult}</td>
       </tr>
       <tr>
-        <td colspan="5" class="result__total  result__total--final">${totalResult}</td>
+        <td colspan="5" class="result__total  result__total--final">${returnTotalResult()}</td>
       </tr>
     </table>
   </div>`;
