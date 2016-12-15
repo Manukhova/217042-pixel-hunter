@@ -62,66 +62,40 @@ export const drawLevel = (options, elem) => {
     mainElement.removeChild(head);
   });
 
-  // const getLevel = () => {
-  //   mainElement.removeChild(head);
-  //   gameState = setCurrentLevel(gameState, gameState.level + 1);
-  //   if (gameState.level >= constraints.levelLimit) {
-  //      clearTimer();
-  //      mainElement.removeChild(head);
-  //      drawLevel(statsElement, level);
-  //    } else {
-  //      drawLevel(content[gameState.level], level);
-  //    }
-  // };
+  const targetValue = event.target.previousSibling.previousSibling.value;
+
+  const getNextLevel = () => {
+    clearTimer();
+    mainElement.removeChild(head);
+    gameState = setCurrentLevel(gameState, gameState.level + 1);
+    if (gameState.level >= constraints.levelLimit) {
+      select(statsElement, level);
+    } else {
+      drawLevel(content[gameState.level], level);
+    }
+  };
 
   const getRightAnswer = () => {
     if (gameState.time >= constraints.timeSlow) {
       gameState.stats[gameState.level] = 'slow';
-      clearTimer();
-      mainElement.removeChild(head);
-      gameState = setCurrentLevel(gameState, gameState.level + 1);
-      if (gameState.level >= constraints.levelLimit) {
-        select(statsElement, level);
-      } else {
-        drawLevel(content[gameState.level], level);
-      }
+      getNextLevel();
     } else if (gameState.time <= constraints.timeFast) {
       gameState.stats[gameState.level] = 'fast';
-      clearTimer();
-      mainElement.removeChild(head);
-      gameState = setCurrentLevel(gameState, gameState.level + 1);
-      if (gameState.level >= constraints.levelLimit) {
-        select(statsElement, level);
-      } else {
-        drawLevel(content[gameState.level], level);
-      }
+      getNextLevel();
     } else {
       gameState.stats[gameState.level] = 'correct';
-      clearTimer();
-      mainElement.removeChild(head);
-      gameState = setCurrentLevel(gameState, gameState.level + 1);
-      if (gameState.level >= constraints.levelLimit) {
-        select(statsElement, level);
-      } else {
-        drawLevel(content[gameState.level], level);
-      }
+      getNextLevel();
     }
   };
 
   const getWrongAnswer = () => {
     gameState = setLives(gameState, gameState.lives - 1);
     document.querySelector('.game__lives').innerHTML = drawHearts(gameState.lives);
-    mainElement.removeChild(head);
     if (gameState.lives <= constraints.livesLimit) {
+      mainElement.removeChild(head);
       select(statsElement, level);
     } else {
-      clearTimer();
-      gameState = setCurrentLevel(gameState, gameState.level + 1);
-      if (gameState.level >= constraints.levelLimit) {
-        select(statsElement, level);
-      } else {
-        drawLevel(content[gameState.level], level);
-      }
+      getNextLevel();
     }
   };
 
@@ -130,7 +104,7 @@ export const drawLevel = (options, elem) => {
     if (event.target.parentNode.classList.contains('game__answer') || event.target.classList.contains('game__option')) {
       if (options.questionNumber === 2) {
         if (event.target.previousSibling.previousSibling.name === 'question1') {
-          if (options.questions[0].type !== event.target.previousSibling.previousSibling.value) {
+          if (options.questions[0].type !== targetValue) {
             gameState = setLives(gameState, gameState.lives - 1);
             document.querySelector('.game__lives').innerHTML = drawHearts(gameState.lives);
             if (gameState.lives <= constraints.livesLimit) {
@@ -139,7 +113,7 @@ export const drawLevel = (options, elem) => {
             }
           }
         } else if (event.target.previousSibling.previousSibling.name === 'question2') {
-          if (options.questions[1].type === event.target.previousSibling.previousSibling.value) {
+          if (options.questions[1].type === targetValue) {
             getRightAnswer();
           } else {
             gameState.stats[gameState.level] = 'wrong';
@@ -147,7 +121,7 @@ export const drawLevel = (options, elem) => {
           }
         }
       } else if (options.questionNumber === 1) {
-        if (options.questions[0].type !== event.target.previousSibling.previousSibling.value) {
+        if (options.questions[0].type !== targetValue) {
           gameState.stats[gameState.level] = 'wrong';
           getWrongAnswer();
         } else {
