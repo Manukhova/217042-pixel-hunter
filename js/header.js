@@ -1,8 +1,8 @@
-import {drawHearts, game} from './game';
+import {drawHearts} from './game';
 import getElementFromTemplate from './getElementFromTemplate';
 
 
-const header = () => {
+const header = (game) => {
   const templateHeader = `<header class="header">
     <div class="header__back">
         <span class="back">
