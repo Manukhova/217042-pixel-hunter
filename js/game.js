@@ -9,7 +9,7 @@ export const bonus = {
 
 export const constraints = {
   timeLimit: 30,
-  levelLimit: 10,
+  levelLimit: 3,
   livesLimit: 0,
   timeSlow: 20,
   timeFast: 10

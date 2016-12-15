@@ -56,8 +56,6 @@ export const drawLevel = (options, elem) => {
   mainElement.insertBefore(head, level);
   setTimer();
 
-  const index = content.indexOf(options) + 1;
-
   head.querySelector('.header__back').addEventListener('click', () => {
     event.preventDefault();
     select(introElement, level);
@@ -67,38 +65,63 @@ export const drawLevel = (options, elem) => {
   // const getLevel = () => {
   //   mainElement.removeChild(head);
   //   gameState = setCurrentLevel(gameState, gameState.level + 1);
-  //   drawLevel(content[index], level);
+  //   if (gameState.level >= constraints.levelLimit) {
+  //      clearTimer();
+  //      mainElement.removeChild(head);
+  //      drawLevel(statsElement, level);
+  //    } else {
+  //      drawLevel(content[gameState.level], level);
+  //    }
   // };
 
   const getRightAnswer = () => {
     if (gameState.time >= constraints.timeSlow) {
-      gameState.stats[index - 1] = 'slow';
+      gameState.stats[gameState.level] = 'slow';
+      clearTimer();
       mainElement.removeChild(head);
       gameState = setCurrentLevel(gameState, gameState.level + 1);
-      drawLevel(content[index], level);
+      if (gameState.level >= constraints.levelLimit) {
+        select(statsElement, level);
+      } else {
+        drawLevel(content[gameState.level], level);
+      }
     } else if (gameState.time <= constraints.timeFast) {
-      gameState.stats[index - 1] = 'fast';
+      gameState.stats[gameState.level] = 'fast';
+      clearTimer();
       mainElement.removeChild(head);
       gameState = setCurrentLevel(gameState, gameState.level + 1);
-      drawLevel(content[index], level);
+      if (gameState.level >= constraints.levelLimit) {
+        select(statsElement, level);
+      } else {
+        drawLevel(content[gameState.level], level);
+      }
     } else {
-      gameState.stats[index - 1] = 'correct';
+      gameState.stats[gameState.level] = 'correct';
+      clearTimer();
       mainElement.removeChild(head);
       gameState = setCurrentLevel(gameState, gameState.level + 1);
-      drawLevel(content[index], level);
+      if (gameState.level >= constraints.levelLimit) {
+        select(statsElement, level);
+      } else {
+        drawLevel(content[gameState.level], level);
+      }
     }
   };
 
   const getWrongAnswer = () => {
     gameState = setLives(gameState, gameState.lives - 1);
     document.querySelector('.game__lives').innerHTML = drawHearts(gameState.lives);
+    mainElement.removeChild(head);
     if (gameState.lives <= constraints.livesLimit) {
       select(statsElement, level);
-      mainElement.removeChild(head);
     } else {
-      mainElement.removeChild(head);
+      clearTimer();
       gameState = setCurrentLevel(gameState, gameState.level + 1);
-      drawLevel(content[index], level);
+      if (gameState.level >= constraints.levelLimit) {
+        select(statsElement, level);
+      } else {
+        drawLevel(content[gameState.level], level);
+      }
     }
   };
 
@@ -119,13 +142,13 @@ export const drawLevel = (options, elem) => {
           if (options.questions[1].type === event.target.previousSibling.previousSibling.value) {
             getRightAnswer();
           } else {
-            gameState.stats[index - 1] = 'wrong';
+            gameState.stats[gameState.level] = 'wrong';
             getWrongAnswer();
           }
         }
       } else if (options.questionNumber === 1) {
         if (options.questions[0].type !== event.target.previousSibling.previousSibling.value) {
-          gameState.stats[index - 1] = 'wrong';
+          gameState.stats[gameState.level] = 'wrong';
           getWrongAnswer();
         } else {
           getRightAnswer();
@@ -138,7 +161,7 @@ export const drawLevel = (options, elem) => {
         } else if (event.target.childNodes[1].alt === 'Option 3' && options.questions[2].type === 'paint') {
           getRightAnswer();
         } else {
-          gameState.stats[index - 1] = 'wrong';
+          gameState.stats[gameState.level] = 'wrong';
           getWrongAnswer();
         }
       }
