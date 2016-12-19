@@ -1,5 +1,4 @@
 import getElementFromTemplate from './getElementFromTemplate';
-// import select from './select';
 import {content} from './game';
 import {drawLevel} from './drawLevel';
 

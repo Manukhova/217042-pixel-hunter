@@ -1,4 +1,4 @@
-export const answers = ['photo', 'paint'];
+const answers = ['photo', 'paint'];
 
 export const bonus = {
   RIGHT: 100,

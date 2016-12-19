@@ -1,5 +1,6 @@
+
 let getElementFromTemplate = (string) => {
-  let node = document.createElement('span');
+  let node = document.createElement('div');
   node.innerHTML = string;
   return node.cloneNode(true);
 };

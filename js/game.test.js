@@ -29,6 +29,11 @@ describe('Lives', () => {
         setLives(game, -1);
       });
     });
+    it('should fail if > game lives', () => {
+      assert.throws(() => {
+        setLives(game, 4);
+      });
+    });
   });
 });
 
