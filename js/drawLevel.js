@@ -71,7 +71,7 @@ export const drawLevel = (options, elem) => {
     mainElement.removeChild(head);
     gameState = setCurrentLevel(gameState, gameState.level + 1);
     if (gameState.level >= constraints.levelLimit) {
-      select(stats(gameState.stats, gameState.lives), level);
+      select(stats(gameState), level);
     } else {
       drawLevel(content[gameState.level], level);
     }
@@ -97,7 +97,7 @@ export const drawLevel = (options, elem) => {
       gameState.stats[gameState.level] = 'wrong';
       clearTimer();
       mainElement.removeChild(head);
-      select(stats(gameState.stats), level);
+      select(stats(gameState), level);
     } else {
       getNextLevel();
     }
@@ -126,7 +126,7 @@ export const drawLevel = (options, elem) => {
           document.querySelector('.game__lives').innerHTML = drawHearts(gameState.lives);
           if (gameState.lives <= constraints.livesLimit) {
             clearTimer();
-            select(stats(gameState.stats), level);
+            select(stats(gameState), level);
             mainElement.removeChild(head);
           }
           if (!isFirstQuestion) {

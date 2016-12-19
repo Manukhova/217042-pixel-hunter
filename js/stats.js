@@ -2,9 +2,9 @@
 import getElementFromTemplate from './getElementFromTemplate';
 import select from './select';
 import introElement from './intro';
-import {game, bonus} from './game';
+import {bonus} from './game';
 
-const stats = () => {
+const stats = (game) => {
   const gameStats = `
     <ul class="stats">
       ${game.stats.map((result) => `<li class="stats__result stats__result--${result}"></li>`).join(' ')}
@@ -50,6 +50,10 @@ const stats = () => {
   //   </tr>
   // </table>`;
 
+  const unknownArr = game.stats.filter((item) => {
+    return item === 'unknown';
+  });
+
   const wrongArr = game.stats.filter((item) => {
     return item === 'wrong';
   });
@@ -62,7 +66,7 @@ const stats = () => {
     return item === 'slow';
   });
 
-  const draftResult = (game.stats.length - wrongArr.length) * bonus.RIGHT;
+  const draftResult = (game.stats.length - wrongArr.length - unknownArr.length) * bonus.RIGHT;
 
   const fastResult = fastArr.length * bonus.FAST;
 
