@@ -31,7 +31,6 @@ export const content = [
     ],
     answers,
     task: 'Угадайте для каждого изображения фото или рисунок?',
-    questionNumber: 2
   },
   {
     questions: [
@@ -43,7 +42,6 @@ export const content = [
     ],
     answers,
     task: 'Угадай, фото или рисунок?',
-    questionNumber: 1
   },
   {
     questions: [
@@ -64,7 +62,6 @@ export const content = [
       }
     ],
     task: 'Найдите рисунок среди изображений',
-    questionNumber: 3
   },
   {
     questions: [
@@ -76,7 +73,6 @@ export const content = [
     ],
     answers,
     task: 'Угадай, фото или рисунок?',
-    questionNumber: 1
   },
   {
     questions: [
@@ -93,7 +89,6 @@ export const content = [
     ],
     answers,
     task: 'Угадайте для каждого изображения фото или рисунок?',
-    questionNumber: 2
   },
   {
     questions: [
@@ -110,7 +105,6 @@ export const content = [
     ],
     answers,
     task: 'Угадайте для каждого изображения фото или рисунок?',
-    questionNumber: 2
   },
   {
     questions: [
@@ -131,7 +125,6 @@ export const content = [
       }
     ],
     task: 'Найдите рисунок среди изображений',
-    questionNumber: 3
   },
   {
     questions: [
@@ -143,7 +136,6 @@ export const content = [
     ],
     answers,
     task: 'Угадай, фото или рисунок?',
-    questionNumber: 1
   },
   {
     questions: [
@@ -155,7 +147,6 @@ export const content = [
     ],
     answers,
     task: 'Угадай, фото или рисунок?',
-    questionNumber: 1
   },
   {
     questions: [
@@ -172,7 +163,6 @@ export const content = [
     ],
     answers,
     task: 'Угадайте для каждого изображения фото или рисунок?',
-    questionNumber: 2
   }
 ];
 

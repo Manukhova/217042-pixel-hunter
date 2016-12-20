@@ -4,53 +4,13 @@ import {content, game, constraints, drawHearts} from './game';
 import select from './select';
 import introElement from './intro';
 import stats from './stats';
+import {setTime, setLives, setCurrentLevel} from './pure.js';
 
 let interval = null;
 let mainElement = document.getElementById('main');
 
-export const setCurrentLevel = (currentGame, level) => {
-  return Object.assign({}, currentGame, {
-    level: level
-  });
-};
-
-export const setTime = (currentGame, time) => {
-  if (time < 0) {
-    throw new RangeError('Time can\'t be negative');
-  }
-  return Object.assign({}, currentGame, {
-    time: time
-  });
-};
-
-export const setLives = (currentGame, lives) => {
-  if (lives < 0) {
-    throw new RangeError('Number of lives can\'t be negative');
-  }
-  return Object.assign({}, currentGame, {
-    lives: lives
-  });
-};
-
 let gameState = game;
 
-const clearTimer = () => {
-  clearInterval(interval);
-  gameState.time = 0;
-};
-
-export const setTimer = () => {
-  interval = setInterval(() => {
-    gameState = setTime(gameState, gameState.time + 1);
-    document.querySelector('.game__timer').innerHTML = gameState.time;
-    if (gameState.time >= constraints.timeLimit) {
-      clearTimer();
-      gameState = setLives(gameState, gameState.lives - 1);
-      document.querySelector('.game__lives').innerHTML = drawHearts(gameState.lives);
-    }
-  }, 1000);
-
-};
 
 export const drawLevel = (options, elem) => {
 
@@ -58,7 +18,24 @@ export const drawLevel = (options, elem) => {
   let level = drawGameScreen(options);
   select(level, elem);
   mainElement.insertBefore(head, level);
-  setTimer();
+
+  const clearTimer = () => {
+    clearInterval(interval);
+    gameState.time = 0;
+  };
+
+  const setTimer = () => {
+    interval = setInterval(() => {
+      gameState = setTime(gameState, gameState.time + 1);
+      document.querySelector('.game__timer').innerHTML = gameState.time;
+      if (gameState.time >= constraints.timeLimit) {
+        getWrongAnswer();
+      }
+    }, 1000);
+
+  };
+
+  setTimer(options);
 
   head.querySelector('.header__back').addEventListener('click', () => {
     event.preventDefault();
@@ -91,10 +68,10 @@ export const drawLevel = (options, elem) => {
   };
 
   const getWrongAnswer = () => {
+    gameState.stats[gameState.level] = 'wrong';
     gameState = setLives(gameState, gameState.lives - 1);
     document.querySelector('.game__lives').innerHTML = drawHearts(gameState.lives);
     if (gameState.lives <= constraints.livesLimit) {
-      gameState.stats[gameState.level] = 'wrong';
       clearTimer();
       mainElement.removeChild(head);
       select(stats(gameState), level);
@@ -141,7 +118,6 @@ export const drawLevel = (options, elem) => {
         if (currentQuestion.type === eventTarget.value) {
           getRightAnswer();
         } else {
-          gameState.stats[gameState.level] = 'wrong';
           getWrongAnswer();
         }
       }
@@ -152,50 +128,9 @@ export const drawLevel = (options, elem) => {
         if (currentQuestion.type === 'paint') {
           getRightAnswer();
         } else {
-          gameState.stats[gameState.level] = 'wrong';
           getWrongAnswer();
         }
       }
     }
   });
 };
-        //
-        // if (event.target.previousSibling.previousSibling.name === 'question1') {
-        //   if (options.questions[0].type !== event.target.previousSibling.previousSibling.value) {
-        //     firstQuestionIsFalse = true;
-        //     gameState = setLives(gameState, gameState.lives - 1);
-        //     document.querySelector('.game__lives').innerHTML = drawHearts(gameState.lives);
-        //     if (gameState.lives <= constraints.livesLimit) {
-        //       select(stats(gameState.stats), level);
-        //       mainElement.removeChild(head);
-        //     }
-        //   }
-        // } else if (event.target.previousSibling.previousSibling.name === 'question2') {
-        //   if (options.questions[1].type === event.target.previousSibling.previousSibling.value && firstQuestionIsFalse !== true) {
-        //     getRightAnswer();
-        //   } else {
-        //     gameState.stats[gameState.level] = 'wrong';
-        //     getWrongAnswer();
-        //   }
-        // }
- // if (options.questionNumber === 1) {
- //        if (options.questions[0].type !== event.target.previousSibling.previousSibling.value) {
- //          gameState.stats[gameState.level] = 'wrong';
- //          getWrongAnswer();
- //        } else {
- //          getRightAnswer();
- //        }
- //      } else if (options.questionNumber === 3) {
- //        if (event.target.childNodes[1].alt === 'Option 1' && options.questions[0].type === 'paint') {
- //          getRightAnswer();
- //        } else if (event.target.childNodes[1].alt === 'Option 2' && options.questions[1].type === 'paint') {
- //          getRightAnswer();
- //        } else if (event.target.childNodes[1].alt === 'Option 3' && options.questions[2].type === 'paint') {
- //          getRightAnswer();
- //        } else {
- //          gameState.stats[gameState.level] = 'wrong';
- //          getWrongAnswer();
- //        }
- // //      }
- //    }
- //  });

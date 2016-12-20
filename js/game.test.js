@@ -1,5 +1,5 @@
 import assert from 'assert';
-import {setTime, setLives, setCurrentLevel} from './drawLevel';
+import {setTime, setLives, setCurrentLevel} from './pure.js';
 import {game} from './game';
 
 describe('Time', () => {
@@ -18,7 +18,7 @@ describe('Time', () => {
 });
 
 describe('Lives', () => {
-  describe('Set lives', () => {
+  describe('Change lives', () => {
     it('should change lives successfully', () => {
       assert.equal(setLives(game, game.lives - 1).lives, 2);
     });
@@ -48,14 +48,6 @@ describe('Level', () => {
       assert.throws(() => {
         setCurrentLevel(game, 20);
       });
-    });
-  });
-});
-
-describe('Stats', () => {
-  describe('Set stats', () => {
-    it('should set stats successfully', () => {
-      assert.notEqual(game.stats[game.level] = 'slow', 'unknown');
     });
   });
 });

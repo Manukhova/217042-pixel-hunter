@@ -19,37 +19,6 @@ const stats = (game) => {
     </div>
   </header>`;
 
-  // const tooManyTemplates = `<table class="result__table">
-  //   <tr>
-  //     <td class="result__number">2.</td>
-  //     <td>
-  //       ${gameStats}
-  //     </td>
-  //     <td class="result__total"></td>
-  //     <td class="result__total  result__total--final">fail</td>
-  //   </tr>
-  // </table>
-  // <table class="result__table">
-  //   <tr>
-  //     <td class="result__number">3.</td>
-  //     <td colspan="2">
-  //       ${gameStats}
-  //     </td>
-  //     <td class="result__points">×&nbsp;100</td>
-  //     <td class="result__total">900</td>
-  //   </tr>
-  //   <tr>
-  //     <td></td>
-  //     <td class="result__extra">Бонус за жизни:</td>
-  //     <td class="result__extra">2&nbsp;<span class="stats__result stats__result--heart"></span></td>
-  //     <td class="result__points">×&nbsp;50</td>
-  //     <td class="result__total">100</td>
-  //   </tr>
-  //   <tr>
-  //     <td colspan="5" class="result__total  result__total--final">950</td>
-  //   </tr>
-  // </table>`;
-
   const unknownArr = game.stats.filter((item) => {
     return item === 'unknown';
   });
@@ -76,7 +45,7 @@ const stats = (game) => {
 
   const returnTotalResult = () => {
     let totalResult;
-    if (wrongArr.length === game.stats.length) {
+    if (wrongArr.length === game.stats.length - unknownArr.length) {
       totalResult = 'FAIL!';
     } else {
       totalResult = draftResult + fastResult + livesResult + slowResult;
@@ -133,6 +102,5 @@ const stats = (game) => {
 
   return statsElement;
 };
-
 
 export default stats;
