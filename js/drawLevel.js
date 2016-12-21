@@ -55,15 +55,13 @@ export const drawLevel = (options, elem) => {
   };
 
   const getRightAnswer = () => {
+    getNextLevel();
     if (gameState.time >= constraints.timeSlow) {
       gameState.stats[gameState.level] = 'slow';
-      getNextLevel();
     } else if (gameState.time <= constraints.timeFast) {
       gameState.stats[gameState.level] = 'fast';
-      getNextLevel();
     } else {
       gameState.stats[gameState.level] = 'correct';
-      getNextLevel();
     }
   };
 
