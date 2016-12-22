@@ -1,4 +1,3 @@
-import introElement from './intro';
+import Application from './Application';
 
-let mainElement = document.getElementById('main');
-mainElement.appendChild(introElement);
+Application.showIntro();
