@@ -11,6 +11,10 @@ class Model {
     return this._state;
   }
 
+  changeStats(string) {
+    this._state.stats[this._state.level] = string;
+  }
+
   getLevel() {
     return this._state.level;
   }

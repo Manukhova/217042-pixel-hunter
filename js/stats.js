@@ -3,15 +3,12 @@ import AbstractView from './AbstractView';
 // import select from './select';
 // import introElement from './intro';
 import {bonus} from './game';
+import Application from './Application';
 
 class StatsView extends AbstractView {
   constructor(gameState) {
     super();
     this.state = gameState;
-  }
-
-  set onHeaderBack(handler) {
-    this._onHeaderBack = handler;
   }
 
   update(newState) {
@@ -20,31 +17,35 @@ class StatsView extends AbstractView {
   }
 
   getUnknownArr() {
-    this.state.stats.filter((item) => {
+    let UnknownArr = this.state.stats.filter((item) => {
       return item === 'unknown';
     });
+    return UnknownArr.length;
   }
 
   getWrongArr() {
-    this.state.stats.filter((item) => {
+    let WrongArr = this.state.stats.filter((item) => {
       return item === 'wrong';
     });
+    return WrongArr.length;
   }
 
   getFastArr() {
-    this.state.stats.filter((item) => {
+    let FastArr = this.state.stats.filter((item) => {
       return item === 'fast';
     });
+    return FastArr.length;
   }
 
   getSlowArr() {
-    this.state.stats.filter((item) => {
+    let SlowArr = this.state.stats.filter((item) => {
       return item === 'slow';
     });
+    return SlowArr.length;
   }
 
   getDraftResult() {
-    return (this.state.stats.length - this.getWrongArr().length - this.getWrongArr().length) * bonus.RIGHT;
+    return (this.state.stats.length - this.getWrongArr() - this.getUnknownArr()) * bonus.RIGHT;
   }
 
   getFastResult() {
@@ -61,7 +62,7 @@ class StatsView extends AbstractView {
 
   getTotalResult() {
     let totalResult;
-    if (this.getWrongArr().length === this.state.stats.length - this.getWrongArr().length) {
+    if (this.getWrongArr() === this.state.stats.length - this.getUnknownArr()) {
       totalResult = 'FAIL!';
     } else {
       totalResult = this.getDraftResult() + this.getFastResult() + this.getLivesResult() + this.getSlowResult();
@@ -104,7 +105,7 @@ class StatsView extends AbstractView {
         <tr>
           <td></td>
           <td class="result__extra">Бонус за скорость:</td>
-          <td class="result__extra">${this.getFastArr().length}&nbsp;<span class="stats__result stats__result--fast"></span></td>
+          <td class="result__extra">${this.getFastArr()}&nbsp;<span class="stats__result stats__result--fast"></span></td>
           <td class="result__points">×&nbsp;${bonus.FAST}</td>
           <td class="result__total">${this.getFastResult()}</td>
         </tr>
@@ -118,7 +119,7 @@ class StatsView extends AbstractView {
         <tr>
           <td></td>
           <td class="result__extra">Штраф за медлительность:</td>
-          <td class="result__extra">${this.getSlowArr().length}&nbsp;<span class="stats__result stats__result--slow"></span></td>
+          <td class="result__extra">${this.getSlowArr()}&nbsp;<span class="stats__result stats__result--slow"></span></td>
           <td class="result__points">×&nbsp;${-bonus.SLOW}</td>
           <td class="result__total">${this.getSlowResult()}</td>
         </tr>
@@ -132,7 +133,7 @@ class StatsView extends AbstractView {
   bindHandlers() {
     this.element.querySelector('.header__back').addEventListener('click', (event) => {
       event.preventDefault();
-      this._onHeaderBack();
+      Application.showIntro();
     });
   }
 }

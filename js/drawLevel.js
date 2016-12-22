@@ -10,6 +10,7 @@ import Application from './Application';
 
 class Presenter {
   constructor(options) {
+
     this.options = options;
     this.head = new HeaderView(Model.state);
     this.level = new LevelView(this.options);
@@ -24,11 +25,12 @@ class Presenter {
 
   clearTimer() {
     clearInterval(this._interval);
-    Model.time = 0;
+    Model.state.time = 0;
   }
 
   startGame() {
-    // this.changeLevel();
+    // this.getNextLevel();
+    this.level.onAnswer = this.answer.bind(this);
     this._interval = setInterval(() => {
       Model.timer();
       if (Model.state.time >= constraints.timeLimit) {
@@ -41,13 +43,49 @@ class Presenter {
   answer(answer) {
     switch (answer) {
       case 2:
-
+        let eventTarget = event.target.previousSibling.previousSibling;
+        let currentQuestion = content[Model.getLevel()].questions.filter((item) => {
+          return eventTarget.name === item.name;
+        })[0];
+        if (currentQuestion.type === eventTarget.value) {
+          if (!this.isFirstQuestion && Model.state.stats[0] === 'wrong') {
+            this.getWrongAnswer();
+          } else {
+            this.getRightAnswer();
+          }
+          this.isFirstQuestion = !this.isFirstQuestion;
+        } else {
+          Model.changeStats('wrong');
+          Model.die();
+          document.querySelector('.game__lives').innerHTML = drawHearts(Model.state.lives);
+          if (Model.state.lives <= constraints.livesLimit) {
+            this.clearTimer();
+            this.endGame();
+          }
+          if (!this.isFirstQuestion) {
+            this.getNextLevel();
+          }
+          this.isFirstQuestion = !this.isFirstQuestion;
+        }
         break;
       case 1:
-
+        eventTarget = event.target.previousSibling.previousSibling;
+        currentQuestion = content[Model.getLevel()].questions[0];
+        if (currentQuestion.type === eventTarget.value) {
+          this.getRightAnswer();
+        } else {
+          this.getWrongAnswer();
+        }
         break;
       case 3:
-
+        currentQuestion = content[Model.getLevel()].questions.filter((item) => {
+          return event.target.childNodes[1].alt === item.name;
+        })[0];
+        if (currentQuestion.type === 'paint') {
+          this.getRightAnswer();
+        } else {
+          this.getWrongAnswer();
+        }
         break;
       default:
         throw new Error('Unknown result');
@@ -61,10 +99,6 @@ class Presenter {
     this.startGame();
   }
 
-  // exit() {
-  //   Application.showStats(Model.state);
-  // }
-
   updateHeader() {
     const head = new HeaderView(Model.state);
     this.root.replaceChild(head.element, this.head.element);
@@ -75,31 +109,32 @@ class Presenter {
     this.clearTimer();
     this.updateHeader();
     Model.nextLevel();
-    if (Model.level >= constraints.levelLimit) {
+    if (Model.state.level >= constraints.levelLimit) {
       this.endGame();
     } else {
-      const level = new LevelView(Model.getLevel());
+      const level = new LevelView(content[Model.getLevel()]);
       level.onAnswer = this.answer.bind(this);
       this.changeContentView(level);
+      this.startGame();
     }
   }
 
   getRightAnswer() {
     this.getNextLevel();
-    if (Model.time >= constraints.timeSlow) {
-      Model.stats[Model.level] = 'slow';
-    } else if (Model.time <= constraints.timeFast) {
-      Model.stats[Model.level] = 'fast';
+    if (Model.state.time >= constraints.timeSlow) {
+      Model.changeStats('slow');
+    } else if (Model.state.time <= constraints.timeFast) {
+      Model.changeStats('fast');
     } else {
-      Model.stats[Model.level] = 'correct';
+      Model.changeStats('correct');
     }
   }
 
   getWrongAnswer() {
-    Model.stats[Model.level] = 'wrong';
+    Model.changeStats('wrong');
     Model.die();
-    document.querySelector('.game__lives').innerHTML = drawHearts(Model.lives);
-    if (Model.lives <= constraints.livesLimit) {
+    document.querySelector('.game__lives').innerHTML = drawHearts(Model.state.lives);
+    if (Model.state.lives <= constraints.livesLimit) {
       this.clearTimer();
       this.endGame();
     } else {
@@ -118,8 +153,8 @@ class Presenter {
   }
 
   changeContentView(view) {
-    this.root.replaceChild(view.element, this.content.element);
-    this.content = view;
+    this.root.replaceChild(view.element, this.level.element);
+    this.level = view;
   }
 
 }
