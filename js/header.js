@@ -1,7 +1,8 @@
-import {drawHearts, game} from './game';
+import {drawHearts} from './game';
+import getElementFromTemplate from './getElementFromTemplate';
 
-export default () =>
-  `<header class="header">
+const header = (game) => {
+  const templateHeader = `<header class="header">
     <div class="header__back">
         <span class="back">
           <img src="img/arrow_left.svg" width="45" height="45" alt="Back">
@@ -13,3 +14,10 @@ export default () =>
       ${drawHearts(game.lives)}
     </div>
   </header>`;
+
+  const headerElement = getElementFromTemplate(templateHeader);
+
+  return headerElement;
+};
+
+export default header;

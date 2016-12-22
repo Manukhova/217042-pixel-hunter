@@ -1,103 +1,187 @@
 const answers = ['photo', 'paint'];
 
+export const bonus = {
+  RIGHT: 100,
+  FAST: 50,
+  SLOW: -50,
+  LIFE: 50
+};
+
+export const constraints = {
+  timeLimit: 30,
+  levelLimit: 10,
+  livesLimit: 0,
+  timeSlow: 20,
+  timeFast: 10
+};
+
 export const content = [
   {
     questions: [
-      'http://placehold.it/468x458',
-      'http://placehold.it/468x458'
+      {
+        name: 'question1',
+        url: 'http://placehold.it/468x458',
+        type: 'photo'
+      },
+      {
+        name: 'question2',
+        url: 'http://placehold.it/468x458',
+        type: 'photo'
+      }
     ],
     answers,
-    task: 'Угадайте для каждого изображения фото или рисунок?'
+    task: 'Угадайте для каждого изображения фото или рисунок?',
   },
   {
     questions: [
-      'http://placehold.it/705x455'
+      {
+        name: 'question1',
+        url: 'http://placehold.it/705x455',
+        type: 'paint'
+      }
     ],
     answers,
-    task: 'Угадай, фото или рисунок?'
+    task: 'Угадай, фото или рисунок?',
   },
   {
     questions: [
-      'http://placehold.it/304x455',
-      'http://placehold.it/304x455',
-      'http://placehold.it/304x455'
+      {
+        url: 'http://placehold.it/304x455',
+        type: 'photo',
+        name: 'Option 1'
+      },
+      {
+        url: 'http://placehold.it/304x455',
+        type: 'photo',
+        name: 'Option 2'
+      },
+      {
+        url: 'http://placehold.it/304x455',
+        type: 'paint',
+        name: 'Option 3'
+      }
     ],
-    answers,
-    task: 'Найдите рисунок среди изображений'
+    task: 'Найдите рисунок среди изображений',
   },
   {
     questions: [
-      'http://placehold.it/468x458',
-      'http://placehold.it/468x458'
+      {
+        name: 'question1',
+        url: 'http://placehold.it/705x455',
+        type: 'paint'
+      }
     ],
     answers,
-    task: 'Угадайте для каждого изображения фото или рисунок?'
+    task: 'Угадай, фото или рисунок?',
   },
   {
     questions: [
-      'http://placehold.it/304x455',
-      'http://placehold.it/304x455',
-      'http://placehold.it/304x455'
+      {
+        name: 'question1',
+        url: 'http://placehold.it/468x458',
+        type: 'photo'
+      },
+      {
+        name: 'question2',
+        url: 'http://placehold.it/468x458',
+        type: 'photo'
+      }
     ],
     answers,
-    task: 'Найдите рисунок среди изображений'
+    task: 'Угадайте для каждого изображения фото или рисунок?',
   },
   {
     questions: [
-      'http://placehold.it/304x455',
-      'http://placehold.it/304x455',
-      'http://placehold.it/304x455'
+      {
+        name: 'question1',
+        url: 'http://placehold.it/468x458',
+        type: 'photo'
+      },
+      {
+        name: 'question2',
+        url: 'http://placehold.it/468x458',
+        type: 'photo'
+      }
     ],
     answers,
-    task: 'Найдите рисунок среди изображений'
+    task: 'Угадайте для каждого изображения фото или рисунок?',
   },
   {
     questions: [
-      'http://placehold.it/705x455'
+      {
+        url: 'http://placehold.it/304x455',
+        type: 'photo',
+        name: 'Option 1'
+      },
+      {
+        url: 'http://placehold.it/304x455',
+        type: 'photo',
+        name: 'Option 2'
+      },
+      {
+        url: 'http://placehold.it/304x455',
+        type: 'paint',
+        name: 'Option 3'
+      }
     ],
-    answers,
-    task: 'Угадай, фото или рисунок?'
+    task: 'Найдите рисунок среди изображений',
   },
   {
     questions: [
-      'http://placehold.it/468x458',
-      'http://placehold.it/468x458'
+      {
+        name: 'question1',
+        url: 'http://placehold.it/705x455',
+        type: 'paint'
+      }
     ],
     answers,
-    task: 'Угадайте для каждого изображения фото или рисунок?'
+    task: 'Угадай, фото или рисунок?',
   },
   {
     questions: [
-      'http://placehold.it/705x455'
+      {
+        name: 'question1',
+        url: 'http://placehold.it/705x455',
+        type: 'paint'
+      }
     ],
     answers,
-    task: 'Угадай, фото или рисунок?'
+    task: 'Угадай, фото или рисунок?',
   },
   {
     questions: [
-      'http://placehold.it/468x458',
-      'http://placehold.it/468x458'
+      {
+        name: 'question1',
+        url: 'http://placehold.it/468x458',
+        type: 'photo'
+      },
+      {
+        name: 'question2',
+        url: 'http://placehold.it/468x458',
+        type: 'photo'
+      }
     ],
     answers,
-    task: 'Угадайте для каждого изображения фото или рисунок?'
+    task: 'Угадайте для каждого изображения фото или рисунок?',
   }
 ];
 
 export const game = {
 
-  stats: ['wrong', 'slow', 'fast', 'correct', 'unknown', 'unknown', 'unknown', 'unknown', 'unknown', 'unknown'],
+  stats: new Array(10).fill('unknown'),
 
-  lives: 2,
+  lives: 3,
 
-  time: 'NN',
+  time: 0,
 
+  level: 0,
 };
 
 const drawHeart = (full) => {
-  return `<img src="img/heart__${full ? 'full' : 'empty'}.svg" class="game__heart" alt="Life" width="32" height="32">`;
+  return `<img src="img/heart__${full ? 'empty' : 'full'}.svg" class="game__heart" alt="Life" width="32" height="32">`;
 };
 
 
 export const drawHearts = (lives) => {
-  return new Array(3).fill(0).map((it, i) => drawHeart(i + 1 >= lives)).join('\n');
+  return new Array(3).fill(0).map((it, i) => drawHeart(i >= lives)).join('\n');
 };
