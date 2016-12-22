@@ -48,9 +48,9 @@ class Presenter {
           return eventTarget.name === item.name;
         })[0];
         if (currentQuestion.type === eventTarget.value) {
-          if (!this.isFirstQuestion && Model.state.stats[0] === 'wrong') {
+          if (!this.isFirstQuestion && Model.state.stats[Model.getLevel()] === 'wrong') {
             this.getWrongAnswer();
-          } else {
+          } else if (!this.isFirstQuestion) {
             this.getRightAnswer();
           }
           this.isFirstQuestion = !this.isFirstQuestion;
@@ -120,7 +120,6 @@ class Presenter {
   }
 
   getRightAnswer() {
-    this.getNextLevel();
     if (Model.state.time >= constraints.timeSlow) {
       Model.changeStats('slow');
     } else if (Model.state.time <= constraints.timeFast) {
@@ -128,6 +127,7 @@ class Presenter {
     } else {
       Model.changeStats('correct');
     }
+    this.getNextLevel();
   }
 
   getWrongAnswer() {
