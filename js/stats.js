@@ -130,7 +130,7 @@ class StatsView extends AbstractView {
   bindHandlers() {
     this.element.querySelector('.header__back').addEventListener('click', (event) => {
       event.preventDefault();
-      Application.showIntro();
+      Application.showRules();
     });
   }
 }
