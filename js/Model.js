@@ -4,7 +4,6 @@ import {game, constraints} from './game';
 class Model {
   constructor(state = game) {
     this._state = state;
-
   }
 
   get state() {

@@ -31,5 +31,4 @@ export default class Application {
   static showStats(gameState) {
     changeView(showStats(gameState));
   }
-
 }
