@@ -1,14 +1,31 @@
 import HeaderView from './header';
 import LevelView from './drawGameScreen';
-import {constraints, drawHearts, content} from './game';
+import {constraints, drawHearts} from './game';
 import Model from './Model.js';
 import Application from './Application';
+import 'whatwg-fetch';
+
+const status = (response) => {
+  if (response.status >= 200 && response.status < 300) {
+    return response;
+  } else {
+    throw new Error(response.statusText);
+  }
+};
+
+const json = (response) => response.json();
+
+const DataPromise = window.fetch('https://intensive-ecmascript-server-nnpnvhhedl.now.sh/pixel-hunter/questions').then(status).then(json);
+DataPromise.then((data) => {
+  console.log('DataPromise0', data[0]);
+});
 
 class Presenter {
   constructor(options) {
     this.options = options;
+
     this.head = new HeaderView(Model.state);
-    this.level = new LevelView(this.options);
+    this.level = new LevelView(this.options[Model.getLevel()]);
 
     this.root = document.createElement('div');
     this.root.appendChild(this.head.element);
@@ -38,9 +55,11 @@ class Presenter {
     switch (answer) {
       case 2:
         let eventTarget = event.target.previousSibling.previousSibling;
-        let currentQuestion = content[Model.getLevel()].questions.filter((item) => {
-          return eventTarget.name === item.name;
-        })[0];
+        // let currentQuestion = content[Model.getLevel()].questions.filter((item) => {
+        //   return eventTarget.name === item.name;
+        // })[0];
+        let index = parseInt(eventTarget.name.slice(8), 10) - 1;
+        let currentQuestion = this.options[Model.getLevel()].answers[index];
         if (currentQuestion.type === eventTarget.value) {
           if (!this.isFirstQuestion && Model.state.stats[Model.getLevel()] === 'wrong') {
             this.getWrongAnswer();
@@ -64,7 +83,7 @@ class Presenter {
         break;
       case 1:
         eventTarget = event.target.previousSibling.previousSibling;
-        currentQuestion = content[Model.getLevel()].questions[0];
+        currentQuestion = this.options[Model.getLevel()].answers[0];
         if (currentQuestion.type === eventTarget.value) {
           this.getRightAnswer();
         } else {
@@ -72,10 +91,9 @@ class Presenter {
         }
         break;
       case 3:
-        currentQuestion = content[Model.getLevel()].questions.filter((item) => {
-          return event.target.childNodes[1].alt === item.name;
-        })[0];
-        if (currentQuestion.type === 'paint') {
+        index = parseInt(event.target.childNodes[1].alt.slice(7), 10) - 1;
+        currentQuestion = this.options[Model.getLevel()].answers[index];
+        if (currentQuestion.type === 'painting') {
           this.getRightAnswer();
         } else {
           this.getWrongAnswer();
@@ -106,7 +124,7 @@ class Presenter {
     if (Model.state.level >= constraints.levelLimit) {
       this.endGame();
     } else {
-      const level = new LevelView(content[Model.getLevel()]);
+      const level = new LevelView(this.options[Model.getLevel()]);
       level.onAnswer = this.answer.bind(this);
       this.changeContentView(level);
       this.startGame();
@@ -129,7 +147,6 @@ class Presenter {
     Model.die();
     document.querySelector('.game__lives').innerHTML = drawHearts(Model.state.lives);
     if (Model.state.lives <= constraints.livesLimit) {
-      this.clearTimer();
       this.endGame();
     } else {
       this.getNextLevel();
@@ -137,6 +154,7 @@ class Presenter {
   }
 
   endGame() {
+    this.clearTimer();
     Application.showStats(Model.state);
   }
 
@@ -146,8 +164,11 @@ class Presenter {
   }
 
 }
-
-const newGame = new Presenter(content[0]);
+let newGame;
+DataPromise.then((data) => {
+  newGame = new Presenter(data);
+});
+// const newGame = new Presenter();
 
 export default () => {
   newGame.restart(false);

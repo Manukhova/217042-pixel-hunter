@@ -1,6 +1,7 @@
 import AbstractView from './AbstractView';
 import Application from './Application';
 
+
 class RulesView extends AbstractView {
   constructor() {
     super();
