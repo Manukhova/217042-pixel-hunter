@@ -73,7 +73,7 @@
     left: 30px;
   }
 
-  &--paint {
+  &--painting {
     input + span {
       background-image: url("../img/paint_big.png");
     }
@@ -96,7 +96,7 @@
     left: -100px
   }
 
-  .game__answer--paint {
+  .game__answer--painting {
     right: -100px;
   }
 }
@@ -124,4 +124,3 @@
   }
 
 }
-
