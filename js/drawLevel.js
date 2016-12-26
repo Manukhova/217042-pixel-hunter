@@ -54,7 +54,8 @@ class Presenter {
         let eventTarget = event.target.previousSibling.previousSibling;
         let index = parseInt(eventTarget.name.slice(8), 10) - 1; // we get a string('question1' or 'question2'), slice it to cut the letters and subtract 1 to get the number of issue in answers array;
         let currentQuestion = this.options[Model.getLevel()].answers[index];
-        if (currentQuestion.type === eventTarget.value) {
+        let rightAnswerCondition = currentQuestion.type === eventTarget.value;
+        if (rightAnswerCondition) {
           if (!this.isFirstQuestion && Model.state.stats[Model.getLevel()] === 'wrong') {
             this.getWrongAnswer();
           } else if (!this.isFirstQuestion) {
@@ -78,7 +79,8 @@ class Presenter {
       case 1:
         eventTarget = event.target.previousSibling.previousSibling;
         currentQuestion = this.options[Model.getLevel()].answers[0];
-        if (currentQuestion.type === eventTarget.value) {
+        rightAnswerCondition = currentQuestion.type === eventTarget.value;
+        if (rightAnswerCondition) {
           this.getRightAnswer();
         } else {
           this.getWrongAnswer();
