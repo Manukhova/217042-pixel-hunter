@@ -14,7 +14,7 @@ export default class LevelView extends AbstractView {
 
   formClassList() {
     let formClass;
-    switch (this.level.questions.length) {
+    switch (this.level.answers.length) {
       case 1:
         formClass = '--wide';
         break;
@@ -31,7 +31,7 @@ export default class LevelView extends AbstractView {
   getMarkup() {
     return `
     <div class="game">
-    ${this.level.task}
+    ${this.level.question}
     <form class="game__content  game__content${this.formClassList(this.level)}">${gameContent(this.level)}</form>
     ${gameStats()}
     </div>`;
@@ -41,7 +41,7 @@ export default class LevelView extends AbstractView {
     this.element.querySelector('.game__content').addEventListener('click', (event) => {
       event.preventDefault();
       if (event.target.parentNode.classList.contains('game__answer') || event.target.classList.contains('game__option')) {
-        this._onAnswer(this.level.questions.length);
+        this._onAnswer(this.level.answers.length);
       }
     });
   }
