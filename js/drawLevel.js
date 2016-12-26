@@ -15,7 +15,7 @@ const status = (response) => {
 
 const json = (response) => response.json();
 
-const DataPromise = window.fetch('https://intensive-ecmascript-server-nnpnvhhedl.now.sh/pixel-hunter/questions').then(status).then(json);
+const dataPromise = window.fetch('https://intensive-ecmascript-server-nnpnvhhedl.now.sh/pixel-hunter/questions').then(status).then(json);
 
 class Presenter {
   constructor(options) {
@@ -52,7 +52,7 @@ class Presenter {
     switch (answer) {
       case 2:
         let eventTarget = event.target.previousSibling.previousSibling;
-        let index = parseInt(eventTarget.name.slice(8), 10) - 1;
+        let index = parseInt(eventTarget.name.slice(8), 10) - 1; // we get a string('question1' or 'question2'), slice it to cut the letters and subtract 1 to get the number of issue in answers array;
         let currentQuestion = this.options[Model.getLevel()].answers[index];
         if (currentQuestion.type === eventTarget.value) {
           if (!this.isFirstQuestion && Model.state.stats[Model.getLevel()] === 'wrong') {
@@ -160,7 +160,7 @@ class Presenter {
 }
 
 let newGame;
-DataPromise.then((data) => {
+dataPromise.then((data) => {
   newGame = new Presenter(data);
 });
 
