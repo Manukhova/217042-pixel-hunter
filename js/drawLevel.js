@@ -162,7 +162,9 @@ class Presenter {
         'Content-Type': 'application/json'
       }
     }).then(status);
-    Application.showStats(Model.state);
+    window.fetch(`${adress}${Model.state.user}`).then(status).then(json).then((data) => {
+      Application.showStats(data);
+    });
   }
 
   changeContentView(view) {

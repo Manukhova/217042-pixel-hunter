@@ -33,7 +33,7 @@ export const game = {
 
   level: 0,
 
-  user: ''
+  user: ':username'
 };
 
 const drawHeart = (full) => {

@@ -1,21 +1,7 @@
 import AbstractView from './AbstractView';
 import {bonus, Result} from './game';
 import Application from './Application';
-import Model from './Model.js';
 
-const adress = 'https://intensive-ecmascript-server-dxttmcdylw.now.sh/pixel-hunter/stats/';
-
-const status = (response) => {
-  if (response.status >= 200 && response.status < 300) {
-    return response;
-  } else {
-    throw new Error(response.statusText);
-  }
-};
-
-const json = (response) => response.json();
-
-const statsPromise = window.fetch(`${adress}${Model.state.user}`).then(status).then(json);
 
 class StatsView extends AbstractView {
   constructor(gameState) {
@@ -23,62 +9,61 @@ class StatsView extends AbstractView {
     this.state = gameState;
   }
 
-
   update(newState) {
     this.state = newState;
     this.element.innerHTML = this.getMarkup();
   }
 
-  getUnknownArr() {
-    let UnknownArr = this.state.stats.filter((item) => {
+  getUnknownArr(stats) {
+    let UnknownArr = stats.filter((item) => {
       return item === Result.UNKNOWN;
     });
     return UnknownArr.length;
   }
 
-  getWrongArr() {
-    let WrongArr = this.state.stats.filter((item) => {
+  getWrongArr(stats) {
+    let WrongArr = stats.filter((item) => {
       return item === Result.WRONG;
     });
     return WrongArr.length;
   }
 
-  getFastArr() {
-    let FastArr = this.state.stats.filter((item) => {
+  getFastArr(stats) {
+    let FastArr = stats.filter((item) => {
       return item === Result.FAST;
     });
     return FastArr.length;
   }
 
-  getSlowArr() {
-    let SlowArr = this.state.stats.filter((item) => {
+  getSlowArr(stats) {
+    let SlowArr = stats.filter((item) => {
       return item === Result.SLOW;
     });
     return SlowArr.length;
   }
 
-  getDraftResult() {
-    return (this.state.stats.length - this.getWrongArr() - this.getUnknownArr()) * bonus.RIGHT;
+  getDraftResult(stats) {
+    return (stats.length - this.getWrongArr(stats) - this.getUnknownArr(stats)) * bonus.RIGHT;
   }
 
-  getFastResult() {
-    return this.getFastArr() * bonus.FAST;
+  getFastResult(stats) {
+    return this.getFastArr(stats) * bonus.FAST;
   }
 
-  getLivesResult() {
-    return this.state.lives * bonus.LIFE;
+  getLivesResult(lives) {
+    return lives * bonus.LIFE;
   }
 
-  getSlowResult() {
-    return this.getSlowArr() * bonus.SLOW;
+  getSlowResult(stats) {
+    return this.getSlowArr(stats) * bonus.SLOW;
   }
 
-  getTotalResult() {
+  getTotalResult(stats, lives) {
     let totalResult;
-    if (this.getWrongArr() === this.state.stats.length - this.getUnknownArr()) {
+    if (this.getWrongArr(stats) === stats.length - this.getUnknownArr(stats)) {
       totalResult = 'FAIL!';
     } else {
-      totalResult = this.getDraftResult() + this.getFastResult() + this.getLivesResult() + this.getSlowResult();
+      totalResult = this.getDraftResult(stats) + this.getFastResult(stats) + this.getLivesResult(lives) + this.getSlowResult(stats);
     }
     return totalResult;
   }
@@ -94,11 +79,48 @@ class StatsView extends AbstractView {
   </header>`;
   }
 
-  getGameStatsMarkup() {
+  getGameStatsMarkup(stats) {
     return `
     <ul class="stats">
-      ${this.state.stats.map((result) => `<li class="stats__result stats__result--${result}"></li>`).join(' ')}
+      ${stats.map((result) => `<li class="stats__result stats__result--${result}"></li>`).join(' ')}
     </ul>`;
+  }
+
+  getTable() {
+    return `${this.state.map((item, i) => `<table class="result__table">
+      <tr>
+        <td class="result__number">${i + 1}.</td>
+        <td colspan="2">
+          ${this.getGameStatsMarkup(item.stats)}
+        </td>
+        <td class="result__points">×&nbsp;100</td>
+        <td class="result__total">${this.getDraftResult(item.stats)}</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td class="result__extra">Бонус за скорость:</td>
+        <td class="result__extra">${this.getFastArr(item.stats)}&nbsp;<span class="stats__result stats__result--fast"></span></td>
+        <td class="result__points">×&nbsp;${bonus.FAST}</td>
+        <td class="result__total">${this.getFastResult(item.stats)}</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td class="result__extra">Бонус за жизни:</td>
+        <td class="result__extra">${item.lives}&nbsp;<span class="stats__result stats__result--heart"></span></td>
+        <td class="result__points">×&nbsp;${bonus.LIFE}</td>
+        <td class="result__total">${this.getLivesResult(item.lives)}</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td class="result__extra">Штраф за медлительность:</td>
+        <td class="result__extra">${this.getSlowArr(item.stats)}&nbsp;<span class="stats__result stats__result--slow"></span></td>
+        <td class="result__points">×&nbsp;${-bonus.SLOW}</td>
+        <td class="result__total">${this.getSlowResult(item.stats)}</td>
+      </tr>
+      <tr>
+        <td colspan="5" class="result__total  result__total--final">${this.getTotalResult(item.stats, item.lives)}</td>
+      </tr>
+    </table>`).join('\n')}`;
   }
 
   getMarkup() {
@@ -106,40 +128,7 @@ class StatsView extends AbstractView {
     ${this.getHeaderStatsMarkup()}
     <div class="result">
       <h1>Победа!</h1>
-      <table class="result__table">
-        <tr>
-          <td class="result__number">1.</td>
-          <td colspan="2">
-            ${this.getGameStatsMarkup()}
-          </td>
-          <td class="result__points">×&nbsp;100</td>
-          <td class="result__total">${this.getDraftResult()}</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td class="result__extra">Бонус за скорость:</td>
-          <td class="result__extra">${this.getFastArr()}&nbsp;<span class="stats__result stats__result--fast"></span></td>
-          <td class="result__points">×&nbsp;${bonus.FAST}</td>
-          <td class="result__total">${this.getFastResult()}</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td class="result__extra">Бонус за жизни:</td>
-          <td class="result__extra">${this.state.lives}&nbsp;<span class="stats__result stats__result--heart"></span></td>
-          <td class="result__points">×&nbsp;${bonus.LIFE}</td>
-          <td class="result__total">${this.getLivesResult()}</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td class="result__extra">Штраф за медлительность:</td>
-          <td class="result__extra">${this.getSlowArr()}&nbsp;<span class="stats__result stats__result--slow"></span></td>
-          <td class="result__points">×&nbsp;${-bonus.SLOW}</td>
-          <td class="result__total">${this.getSlowResult()}</td>
-        </tr>
-        <tr>
-          <td colspan="5" class="result__total  result__total--final">${this.getTotalResult()}</td>
-        </tr>
-      </table>
+      ${this.getTable()}
     </div>`;
   }
 
@@ -151,12 +140,4 @@ class StatsView extends AbstractView {
   }
 }
 
-
-let newStats;
-statsPromise.then((data) => {
-  newStats = new StatsView(data);
-  console.log('stats', data);
-});
-
-
-export default () => newStats.element;
+export default (gameState) => new StatsView(gameState).element;
