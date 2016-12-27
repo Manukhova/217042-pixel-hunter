@@ -10,6 +10,10 @@ class Model {
     return this._state;
   }
 
+  setUserName(string) {
+    this._state.user = string;
+  }
+
   changeStats(string) {
     this._state.stats[this._state.level] = string;
   }

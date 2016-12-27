@@ -1,5 +1,6 @@
 import AbstractView from './AbstractView';
 import Application from './Application';
+import Model from './Model.js';
 
 class RulesView extends AbstractView {
   constructor() {
@@ -41,8 +42,10 @@ class RulesView extends AbstractView {
 
     let rulesSubmit = this.element.querySelector('.rules__button');
     this.element.querySelector('.rules__input').oninput = () => {
-      if (this.element.querySelector('.rules__input').value) {
+      let userName = this.element.querySelector('.rules__input').value;
+      if (userName) {
         rulesSubmit.removeAttribute('disabled');
+        Model.setUserName(':' + userName);
       } else {
         rulesSubmit.setAttribute('disabled', '');
       }
