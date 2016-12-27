@@ -7,6 +7,14 @@ export const bonus = {
   LIFE: 50
 };
 
+export const Result = {
+  CORRECT: 'correct',
+  WRONG: 'wrong',
+  FAST: 'fast',
+  SLOW: 'slow',
+  UNKNOWN: 'unknown'
+};
+
 export const constraints = {
   timeLimit: 30,
   levelLimit: 10,
@@ -24,6 +32,8 @@ export const game = {
   time: 0,
 
   level: 0,
+
+  user: ''
 };
 
 const drawHeart = (full) => {

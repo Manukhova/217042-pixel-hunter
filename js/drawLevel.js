@@ -1,9 +1,11 @@
 import HeaderView from './header';
 import LevelView from './drawGameScreen';
-import {constraints, drawHearts} from './game';
+import {constraints, drawHearts, Result} from './game';
 import Model from './Model.js';
 import Application from './Application';
 import 'whatwg-fetch';
+
+const adress = 'https://intensive-ecmascript-server-dxttmcdylw.now.sh/pixel-hunter/stats/';
 
 const status = (response) => {
   if (response.status >= 200 && response.status < 300) {
@@ -56,7 +58,7 @@ class Presenter {
         let currentQuestion = this.options[Model.getLevel()].answers[index];
         let rightAnswerCondition = currentQuestion.type === eventTarget.value;
         if (rightAnswerCondition) {
-          if (!this.isFirstQuestion && Model.state.stats[Model.getLevel()] === 'wrong') {
+          if (!this.isFirstQuestion && Model.state.stats[Model.getLevel()] === Result.WRONG) {
             this.getWrongAnswer();
           } else if (!this.isFirstQuestion) {
             this.getRightAnswer();
@@ -79,8 +81,7 @@ class Presenter {
       case 1:
         eventTarget = event.target.previousSibling.previousSibling;
         currentQuestion = this.options[Model.getLevel()].answers[0];
-        rightAnswerCondition = currentQuestion.type === eventTarget.value;
-        if (rightAnswerCondition) {
+        if (currentQuestion.type === eventTarget.value) {
           this.getRightAnswer();
         } else {
           this.getWrongAnswer();
@@ -129,17 +130,17 @@ class Presenter {
 
   getRightAnswer() {
     if (Model.state.time >= constraints.timeSlow) {
-      Model.changeStats('slow');
+      Model.changeStats(Result.SLOW);
     } else if (Model.state.time <= constraints.timeFast) {
-      Model.changeStats('fast');
+      Model.changeStats(Result.FAST);
     } else {
-      Model.changeStats('correct');
+      Model.changeStats(Result.CORRECT);
     }
     this.getNextLevel();
   }
 
   getWrongAnswer() {
-    Model.changeStats('wrong');
+    Model.changeStats(Result.WRONG);
     Model.die();
     document.querySelector('.game__lives').innerHTML = drawHearts(Model.state.lives);
     if (Model.state.lives <= constraints.livesLimit) {
@@ -151,6 +152,16 @@ class Presenter {
 
   endGame() {
     this.clearTimer();
+    window.fetch(`${adress}${Model.state.user}`, {
+      method: 'POST',
+      body: JSON.stringify({
+        'stats': Model.state.stats,
+        'lives': Model.state.lives
+      }),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }).then(status);
     Application.showStats(Model.state);
   }
 

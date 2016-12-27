@@ -1,12 +1,28 @@
 import AbstractView from './AbstractView';
-import {bonus} from './game';
+import {bonus, Result} from './game';
 import Application from './Application';
+import Model from './Model.js';
+
+const adress = 'https://intensive-ecmascript-server-dxttmcdylw.now.sh/pixel-hunter/stats/';
+
+const status = (response) => {
+  if (response.status >= 200 && response.status < 300) {
+    return response;
+  } else {
+    throw new Error(response.statusText);
+  }
+};
+
+const json = (response) => response.json();
+
+const statsPromise = window.fetch(`${adress}${Model.state.user}`).then(status).then(json);
 
 class StatsView extends AbstractView {
   constructor(gameState) {
     super();
     this.state = gameState;
   }
+
 
   update(newState) {
     this.state = newState;
@@ -15,28 +31,28 @@ class StatsView extends AbstractView {
 
   getUnknownArr() {
     let UnknownArr = this.state.stats.filter((item) => {
-      return item === 'unknown';
+      return item === Result.UNKNOWN;
     });
     return UnknownArr.length;
   }
 
   getWrongArr() {
     let WrongArr = this.state.stats.filter((item) => {
-      return item === 'wrong';
+      return item === Result.WRONG;
     });
     return WrongArr.length;
   }
 
   getFastArr() {
     let FastArr = this.state.stats.filter((item) => {
-      return item === 'fast';
+      return item === Result.FAST;
     });
     return FastArr.length;
   }
 
   getSlowArr() {
     let SlowArr = this.state.stats.filter((item) => {
-      return item === 'slow';
+      return item === Result.SLOW;
     });
     return SlowArr.length;
   }
@@ -135,4 +151,12 @@ class StatsView extends AbstractView {
   }
 }
 
-export default (gameState) => new StatsView(gameState).element;
+
+let newStats;
+statsPromise.then((data) => {
+  newStats = new StatsView(data);
+  console.log('stats', data);
+});
+
+
+export default () => newStats.element;
